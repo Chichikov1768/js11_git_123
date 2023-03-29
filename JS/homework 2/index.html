@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A-level</title>
+    <link rel="icon" href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67">
+    <link media = "all" rel="stylesheet" href="reset.css">
+    <link media = "all" rel = "stylesheet" href="style.css">
+    
+        <style>
+        </style>
+</head>
+<body>
+    <main>
+    </main>
+    <script>
+          // //  Завдання 1 //
+
+          // var a = 5;  
+          // var b, c;
+
+          // b = (a * 5);  
+          // c = b/2; 
+
+          // //  Завдання 2 //
+          // let d = 2023;
+          // let m = prompt('Напишите Ваш возраст ');
+          // let result = 2023- Number(m);
+          // alert(result);
+
+          // alert('Ваш год рождения '+ result);
+          
+          // // Завдання 3 //
+          // let tempC = Number(prompt('Введите температуру в цельсиях'));
+          // let tempF = (tempC*9/5)+32;
+          // alert('Температура в Фаренгейтах составляет ' + tempF);
+
+          
+          // // Завдання 4 //
+          // let num1 = Number(prompt('введите первое число'));
+          // let num2 = Number(prompt('введите второе число'));
+          // let num3 = Math.round(num1/num2);
+          // alert(num3);
+          // // Завдання 5 //
+          // const rate = 38.251;
+          // let q = Number(prompt('Количесвто долларов которое Вы хотите поменять на гривны'));
+          // result = q*rate;
+          // alert(result.toFixed(2));
+
+
+          // Завдання 7 //
+          let floor = Number(prompt('floor')); //сколько этажей в доме//
+          let numF = Number(prompt('flats')); // количество квартир на этаже//
+          let flat = Number(prompt('flat')); // номер квартиры //
+
+          let blockF = Math.ceil(flat/(floor*numF)); // номер подъезда
+          alert(blockF);
+
+          let flatF = (flat/numF)%floor;
+          if(flatF===0){
+            alert(floor);
+          }else{
+          alert(Math.ceil(flatF));
+          }
+          
+
+          
+
+
+
+    </script>
+</body>
+</html>

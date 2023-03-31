@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A-level</title>
+    <link rel="icon" href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67">
+    <link media = "all" rel="stylesheet" href="reset.css">
+    <link media = "all" rel = "stylesheet" href="style.css">
+    
+        <style>
+        </style>
+</head>
+<body>
+    <main>
+    </main>
+    <script>
+          // String: greeting  //
+
+          let a = prompt('Введите Ваше имя');
+          alert('Привет, ' + a);
+
+          //  String: gopni4ek //
+          let b = prompt('Введите строку');
+          let arr = b.split(',');
+          let result = arr.join(',блин,');
+          alert(result);
+
+          
+          // String: capitalize //
+          {let str = prompt('Введите название города');
+          let result = str.slice(0,1).toUpperCase()+ str.slice(1).toLowerCase();
+            alert(result);
+            console.log(result) //Canberra
+    }
+
+          
+          // String: word count //
+          {
+            let str = prompt('Введите текст');
+            let arr = str.split(' ');
+            alert(arr.length);
+          }
+        
+          // String: credentials //
+          {
+          let surname = prompt('Введите фамилию').trim();
+          let name = prompt('Введите имя').trim();
+          let nameF = prompt('Введите отчество').trim();
+          let str1 = surname.slice(0,1).toUpperCase()+ surname.slice(1).toLowerCase();
+          let str2 = name.slice(0,1).toUpperCase()+ name.slice(1).toLowerCase();
+          let str3 = nameF.slice(0,1).toUpperCase()+ nameF.slice(1).toLowerCase();
+
+          let fullName = str1+' '+str2 + ' '+str3;
+          alert(fullName)
+
+          }
+          
+
+          // String: beer //
+          {
+            let str = "Было жарко. Василий пил пиво вприкуску с креветками"
+            let a = str.indexOf('пиво');
+            let str1 = str.slice(0,a);
+            let str2 = str.slice((a+5));
+            let result = str1+'чай '+str2;
+
+            alert(result);
+            
+
+
+
+          }
+          
+          // String: no tag //
+          {
+          let str = "какой-то текст в котором есть один тэг <br /> и всякое другое";
+          let a = str.indexOf('<');
+          let b = str.indexOf('>');
+          let str1 = str.slice(0,a) 
+          let str2 = str.slice(b+1);
+          let result = str1 + str2;
+          alert(result);
+          }
+
+          // String: big tag//
+          {
+          let str = "какой-то текст в котором есть один тэг <br /> и всякое другое";
+          let a = str.indexOf('<');
+          let b = str.indexOf('>');
+          let str2 = str.slice(a,b+1).toUpperCase();
+          let result = str.slice(0,a) + str2 + str.slice(b+1);
+          console.log(result);
+          }     
+          // String: new line//
+          {
+            let str = prompt('Введите текст');
+            console.log(str);
+            let arr = str.split('\\n');
+            console.log(arr);
+            let result = arr.join('\n');
+            alert(result);
+          }
+
+          // String: youtube//
+{
+          const a = 'http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?';
+          let found =str.match(a);
+          console.log(found);
+
+
+
+}
+
+
+    </script>
+</body>
+</html>

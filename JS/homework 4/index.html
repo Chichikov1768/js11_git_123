@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A-level</title>
+    <link rel="icon" href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67">
+    <link media = "all" rel="stylesheet" href="reset.css">
+    <link media = "all" rel = "stylesheet" href="style.css">
+    
+        <style>
+        </style>
+</head>
+<body>
+    <main>
+
+    </main>
+
+    
+    <script>
+        let p = prompt('Введите название задания, Учитель(регистр не имеет значения)').trim().toLowerCase();
+        if (p==='number odd'){
+          // Number odd //
+          let a  = prompt('Enter the number');
+            if(!(+a)){
+                
+                alert('this is not a number');
+            } else if(+a % 2 === 0){
+                alert('number is even');
+
+            }else{
+                alert('number is odd');
+            }
+        }
+        if(p==='string: lexics'){
+            // String: lexics //
+            let b = prompt('enter text');
+             if(Number(b.indexOf('some bad word'))>=0){
+                alert(1);
+             } else{
+                let c = b.split(' ');
+                for(let elem of c){
+                    if(elem == "some"){
+                        alert('bad word find',elem);
+
+                    }
+                    if(elem == 'bad'){
+                        alert('bad word find',elem);
+                    }
+                    if(elem === 'word'){
+                        alert('bad word find',elem);
+                    }
+                }
+             }
+            }
+
+            if(p==='boolean' || p==='boolean: if'){
+             //Boolean//
+             let d = confirm('Do you like cats?');
+
+             if(d){
+                alert('You like cats. You are nice')
+             } else {
+                alert('you are so rude');
+             }
+
+
+                let e = confirm('Do you like tea?');
+
+                if(e){
+                alert('You are nice')
+            }
+            else{
+            alert('Maybe you like coffee more');
+           }
+             let f = confirm('Do you like music?');
+                if(f){
+                    alert('You are nice');
+                }else{  
+                    alert('You are rude');
+
+                }
+        if(p==='comparison: sizes'){
+               // Comparison: sizes//
+
+                let g = +prompt('Введите Французский размер одежді для перевода в итальянскую');
+                if(g===36){
+                    alert('Итальянский размер = ' + (g+2));
+                }  else if(g===38){
+                    alert('Итальянский размер = ' + (g+2));
+                }    else if(g===40){
+                    alert('Итальянский размер = ' + (g+2));
+                }    else if(g===42){
+                    alert('Итальянский размер = ' + (g+2));
+                }     else if(g===44){
+                    alert('Итальянский размер = ' + (g+2));
+                } else if(g===46){
+                    alert('Итальянский размер = ' + (g+2));
+                } else if(g===48){
+                    alert('Итальянский размер = ' + (g+2));
+                } else if(g===50){
+                    alert('Итальянский размер = ' + (g+2));
+                } else{
+                    alert('Ви ввели якусь дичину');
+                }
+            }
+        }
+        if(p==='ternary'){
+                //Ternary//
+                let h = confirm('Are you man?') ? alert('Yes, you are!') : alert('No, you are woman');
+                }
+        if(p==='prompt: or'){
+                //Prompt or
+                let dm = 2023;
+                let m = (prompt('Напишите Ваш возраст ')|| alert('Вы ввели некоректоное значение'));
+                let result = +dm - Number(m);
+                alert(result);
+
+                 alert('Ваш год рождения '+ result);
+        }
+        if(p==='confirm: or this days'){
+                 //confirm or this days //
+
+
+                let j = (confirm('Шопинг?')|| alert('ты - бяка'));
+        }
+        if(p==='confirm: if this days'){
+                //confirm if this days //
+
+                let i = confirm('Шопинг?');
+                if(!i){
+                    alert('ты - бяка');
+                } else {
+                    alert('Шопинг!!!');
+                }
+            }
+        if(p==='default: or'){
+                //default : or //
+
+                let name = (prompt ('name') || 'Иван');
+                let surname = (prompt ('surname') || 'Иванов');
+                let fName = (prompt ('Father name') || 'Иванович');
+                console.log(surname, name , fName);
+        }
+        if(p==='default: if'){
+                //default : if //
+
+                {
+                let name = prompt ('name');
+                let surname = prompt ('surname');
+                let fName = prompt ('Father name');
+
+                if(!name){
+                    name = 'Иван';
+                }
+
+                if(!surname){
+                    surname = 'Иванов';
+                }
+
+                if(!fname){
+                    fName = 'Иванович';
+                }
+            }
+        }
+
+        if(p==='login and password'){
+            //Login and password //
+
+                let login = 'admin';
+                let password = 'qwerty';
+
+                let date = prompt('type login');
+                let date2 = prompt('type password');
+
+                if(login === date && password === date2){
+                    alert('congratulations');
+                }else{
+                    alert('Error');
+                }
+            }
+            if(p==='currency exchange'){
+
+                //currncy exchange //
+                
+                    let currency = prompt('Введите валюту : USD или EUR').trim().toLocaleUpperCase();
+                    
+                    let operation = confirm('Вы хотите купить валюту?') ? 'buy' : 'sell';
+                    let quantity = (+(prompt('Введите сумму которая у вас есть')) || 'Вы ввели какую-то дичь');
+                    let result1;
+                    
+
+                    if(currency==='USD'){
+                        let rate = +((operation === 'buy') ? '38' : '37,6');
+
+                        if(rate===38){
+
+                            result1= quantity/rate;
+                            alert(Math.round(result1) );
+                        }else{
+                            result1= quantity*rate;
+                            alert(Math.round(result1) );
+                        }
+                        
+                        
+                        
+                    }else{
+                        let rate = +((operation === 'buy') ? '41' : '40');
+
+                            if(rate===41){
+
+                            result1= quantity/rate;
+                            alert(Math.round(result1) );
+                            }else{
+                            result1= quantity*rate;
+                            alert(Math.round(result1) );
+                            }
+
+                        }
+                    }
+                if(p==='scissors'){
+                    // scisors //
+
+                    {let choice = ((prompt('Введите ваш выбор : Камень,ножницы, бумага')).trim().toLowerCase() || 'Вы ничего не ввели');
+                    let random = Math.random() * 3;
+                    let compChoice ;
+                    if(random>=0 && random <1){
+                        compChoice = 'ножницы';
+                    }
+                    if(random>=1 && random <2){
+                        compChoice = 'бумага';
+                    }
+                    if(random>=2 && random <3){
+                        compChoice = 'камень';
+                    }
+                    console.log(compChoice,choice);
+                    if(choice==='Вы ничего не ввели'){
+                        alert('Вы ничего не ввели');
+                    }else if(choice===compChoice){
+                        alert('Победила дружба')
+                    }else if((choice==='камень' && compChoice ==='бумага')||(choice==='бумага' && compChoice ==='ножницы')||(choice==='ножницы' && compChoice==='камень')) {
+                        alert('Вы проиграли');
+                    }else{
+                        alert('Вы победили');
+                    }
+                    }
+                }
+                    
+
+
+                    
+
+
+
+                
+
+
+             
+
+            
+
+    </script>
+</body>
+</html>

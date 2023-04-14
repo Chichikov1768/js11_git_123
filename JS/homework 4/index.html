@@ -220,9 +220,15 @@
                 if(p==='scissors'){
                     // scisors //
 
-                    {let choice = ((prompt('Введите ваш выбор : Камень,ножницы, бумага')).trim().toLowerCase() || 'Вы ничего не ввели');
+                    {
+                    let choice = ((prompt('Введите ваш выбор : Камень,ножницы, бумага')).trim().toLowerCase() || 'Вы ничего не ввели');
                     let random = Math.random() * 3;
                     let compChoice ;
+                    if(!((choice==='ножницы')|| (choice==='бумага')||(choice==='камень')|| (choice==='Вы ничего не ввели'))){
+                        alert('Товарищ, Вы ввели какую-то дичь');
+            
+                        
+                    }else {
                     if(random>=0 && random <1){
                         compChoice = 'ножницы';
                     }
@@ -232,7 +238,7 @@
                     if(random>=2 && random <3){
                         compChoice = 'камень';
                     }
-                    console.log(compChoice,choice);
+                    console.log("Выбор компа- " + compChoice,choice + ' - ваш выбор');
                     if(choice==='Вы ничего не ввели'){
                         alert('Вы ничего не ввели');
                     }else if(choice===compChoice){
@@ -244,6 +250,30 @@
                     }
                     }
                 }
+            }
+            if(p==='дополнительное задание'){
+            //Дополнительное задание//
+
+            let xxx = function (){
+                let choice = ((prompt('Введите ваш выбор : Камень,ножницы, бумага')).trim().toLowerCase() || 'Вы ничего не ввели');
+                let random = Math.random() * 3;
+                let compChoice = Math.ceil(random) ;
+                
+                let game = ((choice=='камень'&& 1) || (choice==='ножницы' && 2) || (choice==='бумага' && 3));
+                console.log(game,compChoice);
+                
+
+                let  draw = ((game===(compChoice))&& (alert('draw')));
+                let win = ((((game===1)&&(compChoice===2)) ||((game===2)&&(compChoice===3)) ||((game===3)&&(compChoice===1)))&&(alert('you win')));
+                let lost = (!(game===(compChoice))&& !(((game===1)&&(compChoice===2)) ||((game===2)&&(compChoice===3)) ||((game===3)&&(compChoice===1)))&&(alert('you lost')));
+                
+                
+                
+
+            }
+            xxx();
+        }
+
                     
 
 

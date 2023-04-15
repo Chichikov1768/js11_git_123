@@ -261,12 +261,8 @@
                 
                 let game = ((choice=='камень'&& 1) || (choice==='ножницы' && 2) || (choice==='бумага' && 3));
                 console.log(game,compChoice);
-                
-
-                let  draw = ((game===(compChoice))&& (alert('draw')));
-                let win = ((((game===1)&&(compChoice===2)) ||((game===2)&&(compChoice===3)) ||((game===3)&&(compChoice===1)))&&(alert('you win')));
-                let lost = (!(game===(compChoice))&& !(((game===1)&&(compChoice===2)) ||((game===2)&&(compChoice===3)) ||((game===3)&&(compChoice===1)))&&(alert('you lost')));
-                
+            
+                let result =(((game===(compChoice))&& (alert('draw')))||((((game===1)&&(compChoice===2)) ||((game===2)&&(compChoice===3)) ||((game===3)&&(compChoice===1)))&&(alert('you win')))||(!(game===(compChoice))&& !(((game===1)&&(compChoice===2)) ||((game===2)&&(compChoice===3)) ||((game===3)&&(compChoice===1)))&&(alert('you lost'))))
                 
                 
 

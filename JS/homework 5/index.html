@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>A-level</title>
+    <link
+      rel="icon"
+      href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67"
+    />
+    <link media="all" rel="stylesheet" href="reset.css" />
+    <link media="all" rel="stylesheet" href="style.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <main></main>
+
+    <script>
+//         //Confirms//
+//         {let d = confirm("Do you like cats?");
+
+//         let e = confirm("Do you like tea?");
+
+        
+//         let f = confirm("Do you like music?");
+//         let h = confirm("Are you man?");
+//         let arr = [d,e,f,h];
+//         console.log(arr);
+//     }
+
+//         //Prompts//
+//         let arr1 =[];
+//         arr1[0]= prompt('bla-bla-bla');
+//         arr1[1]= prompt('bla');
+//         console.log(arr1);
+//           //Item access//
+
+//               let arr2 = ['a','b','c','d','e','f','g','h','i','j'];
+//               let q = (prompt('Введите индекс элемента в массиве'));
+//               console.log(typeof q);
+//               console.log(q);
+//               if(q!=='length'){
+//                 let m = +q;
+//                 console.log(typeof m);
+//                 if((isNaN(m))){
+//                   console.log('Вы ввели какую-то дичь');
+//                 }else{
+                  
+//                   console.log(arr2[m]);
+//                 }
+//               }else{
+//               console.log(arr2[q]);
+//               }
+
+//           //item change //
+
+//           let arr3=[];
+//           arr3[prompt('введите индекс')]= prompt('введите значение');
+//           console.log(arr3);
+//           // multiply table slice
+// {
+//           let arr = Array(6);
+//           for (let i = 1; i < 6; i++) {
+//             arr[i] = [...Array(6)].map((_, j) => i * j);
+//           }
+
+//           console.log(arr)
+
+//           // Делаем таблицу текстом
+//           let s = '';
+//           for (let i = 1; i < 6; i++) {
+//             s += arr[i].slice(1).join(' ') + '\n';
+//           }
+
+//           console.log(s);         // Вся таблица
+//           console.log(arr[5][5]);
+//           console.log(arr[2][3]);
+//           console.log(arr[5][3]); // 2
+//         }    
+        
+//         // IndexOf Word
+
+//         {
+//         let str = prompt('введите строку');
+//         let x = prompt('искомое слово');
+//         let arr4 = str.split(' ');
+//         if(arr4.indexOf(x)=== -1){
+//           console.log('этого слова нет');
+//         }else{
+//           console.log(arr4.indexOf(x));
+
+//         }
+//       }
+//         //reverse//reverse 2//
+//         {
+//           let arr = [];
+//           for(let i = 0; i < 5; i++){
+//             arr.push(prompt('Введите значение'));
+//           }
+//           console.log(arr);
+//           let arr2 = [];
+//           for(let i = 0; i < 5; i++){
+//             arr2.push(arr.pop());
+//           }
+//           console.log(arr2);
+          
+//         let arr3 = [];
+//           for(let i = 0; i < 5; i++){
+//             arr3.unshift(arr2.shift());
+//           }
+//           console.log(arr3);
+//         }
+//         //copy
+//         {
+//           let arr = Array(6);
+//           for (let i = 1; i < 6; i++) {
+//             arr[i] = [...Array(6)].map((_, j) => i * j);
+//           }
+
+//           console.log(arr)
+
+//           // Делаем таблицу текстом
+//           let s = '';
+//           for (let i = 1; i < 6; i++) {
+//             s += arr[i].slice(1).join(' ') + '\n';
+//           }
+
+//           console.log(s);         // Вся таблица
+//           console.log(arr[5][5]);
+//           console.log(arr[2][3]);
+//           console.log(arr[5][3]); // 2
+        
+        
+        
+//         let arr5 =arr;
+//         console.log(arr5);
+        
+//         //deep copy
+//         let arr6 = [...arr];
+//         console.log(arr6);
+        
+
+        
+//         let arr8 =arr.slice();
+//         console.log(arr8);
+//         }
+
+//         // Array equals 
+
+//         arr10 = [1,2,3];
+//         arr20 = arr1;
+//         let a = arr1;
+//         let b = arr2;
+
+//         if(a===b){
+//           console.log('Правда');
+//         }
+//         if (arr10===arr20){
+//           console.log('true');
+//         }
+
+//         //flat
+//         {
+//           let arr = Array(6);
+//           for (let i = 1; i < 6; i++) {
+//             arr[i] = [...Array(6)].map((_, j) => i * j);
+//           }
+
+//           console.log(arr)
+
+//           // Делаем таблицу текстом
+//           let s = '';
+//           for (let i = 1; i < 6; i++) {
+//             s += arr[i].slice(1).join(' ') + '\n';
+//           }
+
+
+
+//         let arr7 = [...arr].join('');
+//         console.log(arr7);
+//         console.log(arr7.length);
+//         }
+
+//         //destruct//
+//         {
+//           let [first,,,,fifth,,,,ninth]= prompt('введите строку');
+//           console.log(first,fifth,ninth)
+          
+//         }
+//         //Destruct default
+
+//         {
+//           let [first='!'  ,,,,fifth='!',,,,ninth='!']= prompt('введите строку');
+//           console.log(first,fifth,ninth)
+//         }
+
+//         //Multiply table rest
+
+//         {
+//           let arr = Array(6);
+//           for (let i = 1; i < 6; i++) {
+//             arr[i] = [...Array(6)].map((_, j) => i * j);
+//           }
+
+//           console.log(arr);
+
+//           let [,[, ...rest1],[, ...rest2],[, ...rest3],[, ...rest4],[, ...rest5]] = arr;
+//           let arr3 = [rest1,rest2,rest3,rest4,rest5];
+//           console.log(arr3);
+
+//         }
+//         //for alert
+// {
+//   let arr =["John", "Paul", "George", "Ringo"];
+
+//   for(let elem of arr){
+//     console.log(elem);
+//   }
+// }
+
+// //for select option
+// {
+// const currencies = ["USD", "EUR", "GBP", "UAH"]
+// let   str = "<select>"
+//   let option = document.createElement('option');
+  
+// for (let currency of currencies){
+  
+//   str += '<option>' + currency + '</option>' ;
+  
+  
+//   }
+// }
+
+
+// str+= "</select>"
+// document.write(str) //docum
+
+
+// //For Table Horizontal
+
+// const names = ["John", "Paul", "George", "Ringo"]
+// let   str = "<table>"
+// for (const name of names){
+  
+// str+= name+" "
+// }
+// str+= "</table>"
+// document.write(str) //
+
+
+// //For Table Vertical
+
+// {
+
+
+//       const currencies = ["USD", "EUR", "GBP", "UAH"]
+//       let   str = "<table>";
+//       for (let currency of currencies){ //цикл создает строки
+//           //одна итерация цикла создает ОДНУ СТРОКУ
+//           str +=  '<tr>' + '</tr>'
+//           for (let letter of currency){ //цикл создает ЯЧЕЙКИ в ОДНОЙ СТРОКЕ
+//               //одна итерация цикла создает ОДНУ ЯЧЕЙКУ
+//               str+= '<td>'+letter + '</td>'
+//           }
+          
+//       }
+//       str+= "</table>"
+//       document.write(str)
+      
+//       }
+
+
+//       //For Multiply Table
+      
+        
+
+//         { let i = 0;
+//           let str = "<table>";
+//           const arr = []
+//           arr[0] = [0, 0, 0, 0, 0], 
+//           arr[1] = [0, 1, 2, 3, 4], 
+//           arr[2] = [0, 2, 4, 6, 8], 
+//           arr[3] = [0, 3, 6, 9, 12,], 
+//           arr[4] = [0, 4, 8, 12, 16] 
+
+//           for(let elem of arr){
+//             str +=  '<tr>' + '</tr>';
+
+//             for(let el of elem){
+//               str += (i % 2)? '<td style=backgroundcolor:#ff95ff>' + el + "</td>" : "<td style=background-color:#ca95ff>" + el + "</td>"
+//             }
+//             i++
+          
+
+//           }
+
+//           str+= "</table>"
+//                 document.write(str)
+
+
+
+//         }
+
+//         // Function Capitalize
+
+// {
+//         const capitalize = str => {
+//           let result = str.slice(0,1).toUpperCase()+ str.slice(1).toLowerCase();
+    
+     
+//     return result //именно этот код обеспечит возврат результата функции
+// }
+// console.log(capitalize("cANBerRa")) //Canberra
+
+
+
+// }
+// Map Capitalize
+
+{
+    
+    const capitalize = str => {
+            let result = str.slice(0,1).toUpperCase()+ str.slice(1).toLowerCase();
+      
+      
+      return result //именно этот код обеспечит возврат результата функции
+  }
+
+    let str1 = prompt('Введите 3 ваши любимые книги');
+    let arr = str1.split(' ');
+    console.log(arr);
+
+      arr.map(capitalize)
+
+    
+
+
+}
+
+// Filter Lexics
+
+{
+let str1 = prompt('Введите 3 ваши любимые книги');
+let arr = str1.split(' ');
+
+function isBad(x){
+  let arr2 = ['чёрт','кукуруза','негр'];
+
+  for(let elem of arr2){
+    if(!(x === elem)){
+      return true;
+    }else{
+      return false;
+    }
+  }
+}
+console.log(isBad('чепуха'));
+let str3 = arr.filter(isBad).join(' ');
+console.log(str3);
+
+}
+// Beep Lexics
+{
+  let str1 = prompt('Введите 3 ваши любимые книги');
+  let arr = str1.split(' ');
+  
+  
+  function isBad2(x){
+  let arr2 = ['чёрт','кукуруза','негр'];
+
+
+ result = (!(arr2.includes(x))) ? x : "BEEP" ;
+ return result;
+}
+let arr3 = arr.map(isBad2);
+console.log(arr3);
+
+// Reduce HTML
+{
+  const currencies = ["USD", "EUR", "GBP", "UAH"]
+        let  str = "<select>"
+            str += currencies.reduce(( currency, currencies ) => currencies + ('<option>' + currency + '</option>'), 'UAH')       
+                str += "</select>" 
+    document.write(str)
+
+}
+
+//For Brackets Hell Check
+
+{
+  const line = prompt('enter some string with some different double brackets').split(' ')
+        
+        const bracketsStack = []
+        let   i             = 0
+        for (let character of line){
+        //     //не обращайте внимания на символы, кроме трех видов скобок 
+        character = bracketsStack[bracketsStack.length -1]
+            if (line[i] == "(" || line[i] == "{" || line[i] == "[") {
+                bracketsStack.push(line[i])
+            } else if ((character == "(" && line[i] == ")") ||
+            (character == "{" && line[i] == "}") ||
+            (character == "[" && line[i] == "]")){
+                bracketsStack.pop()
+                alert(` String : ${line.join('')} does not contain unpaired brackets`)
+            }
+            else{
+                alert(` String : ${line.join('')} contain unpaired bracket on position: ${i}`)
+                    break; //оператор break прерывает цикл преждевременно
+            }
+            i++
+        }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+        
+        
+        
+
+       
+
+
+
+                  </script>
+  </body>
+</html>

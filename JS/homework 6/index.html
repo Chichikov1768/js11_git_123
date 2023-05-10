@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>A-level</title>
+    <link
+      rel="icon"
+      href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67"
+    />
+    <link media="all" rel="stylesheet" href="reset.css" />
+    <link media="all" rel="stylesheet" href="style.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <main></main>
+
+    <script>
+
+      // literals ////Literals expand
+{
+  
+let key1 = prompt('Введите значение любого ключа');
+let key2 = prompt('Введите значение любого ключа');
+
+let catCleo = {
+  age: '8 years',
+  weight: '4 kilograms',
+  breed: 'Scotish fold',
+  [key1] : prompt('Введите значение любого ключа'),
+  [key2] : prompt('Введите значение любого ключа')
+
+}
+let catMia = {
+  age: '3 years',
+  weight: '4,5 kilograms',
+  breed: 'cur',
+  [key1] : prompt('Введите значение любого ключа'),
+  [key2] : prompt('Введите значение любого ключа')
+}
+console.log(catCleo, catMia);
+//Literals copy
+
+let b = prompt('Введите свойство');
+let obj2 ={
+  [b] : {...catMia}
+}
+console.log(obj2);
+
+
+
+
+
+  
+  
+
+}
+
+//Html tree
+let body = {
+  tagName : 'body',
+
+children:[
+  {
+    tagName:'div',
+    children:[
+      {tagName:'span',
+      children:['Enter a data please']
+  },
+  {
+    tagName:'/br'
+  },
+{
+  tagName:'input',
+  attrs:{
+    type:'text',
+    id:'name'
+  }
+},
+{
+  tagName:'input',
+  attrs:{
+    type:'text',
+    id:'surname'
+  }
+}]
+  },
+  {
+    tagName:'div',
+    children:[
+      {
+        tagName:'button',
+        attrs:{
+          id:'ok'
+        },
+        children:['OK']
+      },
+      {
+        tagName:'button',
+        attrs:{
+          id:'cancel'
+        },
+        children:['Cancel']
+      }
+    ]
+  }
+
+]
+}
+
+console.log(body.children[1].children[1].children[0]);
+console.log(body.children[0].children[3].attrs.id);
+
+
+// parent
+body.children[0].parent= body;
+body.children[1].parent= body;
+body.children[0].children[0].parent = body.children[0]
+body.children[0].children[1].parent = body.children[0]
+body.children[0].children[2].parent = body.children[0]
+body.children[0].children[3].parent = body.children[0]
+
+body.children[1].children[0].parent = body.children[1]
+body.children[1].children[1].parent = body.children[1]
+
+
+// проверка
+// console.log(body.children[0].parent);
+// console.log(body.children[1].parent);
+
+//Change OK
+// body.children[0].children[2].attrs.id
+
+{
+  let body = {
+  tagName : 'body',
+
+children:[
+  {
+    tagName:'div',
+    children:[
+      {tagName:'span',
+      children:['Enter a data please']
+  },
+  {
+    tagName:'/br'
+  },
+{
+  tagName:'input',
+  attrs:{
+    type:'text',
+    id:'name'
+  }
+},
+{
+  tagName:'input',
+  attrs:{
+    type:'text',
+    id:'surname'
+  }
+}]
+  },
+  {
+    tagName:'div',
+    children:[
+      {
+        tagName:'button',
+        attrs:{
+          id:'ok'
+        },
+        children:['OK']
+      },
+      {
+        tagName:'button',
+        attrs:{
+          id:'cancel'
+        },
+        children:['Cancel']
+      }
+    ]
+  }
+
+]
+}
+
+let b = prompt('Введите атрибут');
+body.children[0].children[2].attrs.b = prompt('введите значение');
+console.log(body.children[0].children[2].attrs)
+
+
+
+}
+//Destructure
+{
+
+  let body = {
+  tagName : 'body',
+
+  children:[
+    {
+      tagName:'div',
+      children:[
+        {tagName:'span',
+        children:['Enter a data please']
+      },
+      {
+        tagName:'/br'
+      },
+      {
+      tagName:'input',
+      attrs:{
+      type:'text',
+      id:'name'
+      }
+    },
+{
+  tagName:'input',
+  attrs:{
+    type:'text',
+    id:'surname'
+  }
+}]
+  },
+    {
+      tagName:'div',
+      children:[
+      {
+        tagName:'button',
+        attrs:{
+          id:'ok'
+        },
+        children:['OK']
+      },
+      {
+        tagName:'button',
+        attrs:{
+          id:'cancel'
+        },
+        children:['Cancel']
+      }
+    ]
+  }
+
+]
+}
+let {tagName, children : [ { tagName1, children11: [ { tagName11,children12 } ] },{ tagName2, children21:[ { tagName21,children22 } ] } ]} = body;
+
+
+
+
+console.log(children12)
+
+
+
+
+}
+
+//Destruct array
+{
+  let arr = [1,2,3,4,5, "a", "b", "c"]
+
+  let [odd1,even1,odd2,even2,odd3, ...rest] = arr;
+
+  console.log(rest);
+  console.log(odd2);
+}
+// destruct array 
+
+let arr = [1, "abc"]
+
+let [number,[s1,s2,s3]] = arr;
+console.log(s2)
+
+//
+
+{
+  
+  let obj = {name: 'Ivan',
+           surname: 'Petrov',
+           children: [{name: 'Maria'}, {name: 'Nikolay'}]}
+
+
+let {name,surname,children:[{name:name1},{name:name2}]}=obj;
+console.log(name1,name2)
+
+}
+
+//
+{
+  
+  let arr = [1,2,3,4, 5,6,7,10];
+  
+  let {0:a,1:b,length} = arr;
+  console.log(a,b, length);
+
+
+
+}
+//copy delete
+
+{
+let key1 = prompt('Введите значение любого ключа');
+let key2 = prompt('Введите значение любого ключа');
+
+let catCleo = {
+  age: '8 years',
+  weight: '4 kilograms',
+  breed: 'Scotish fold',
+  [key1] : prompt('Введите значение любого ключа'),
+  [key2] : prompt('Введите значение любого ключа')
+  
+
+}
+
+let obj1 = {...catCleo};
+  console.log(obj1);
+
+  delete obj1[key1];
+  delete obj1[key2];
+
+  console.log(obj1);
+
+  ///Currency real rate 
+  
+      let currency = prompt('Введите валюту которую хотите поменять').toUpperCase();
+      let currencyExchange = prompt('Введите валюту на которую хотите поменять','USD').toUpperCase();
+      console.log(currency);
+      let amount = Number(prompt('Введите сумму, которую хотите поменять'));
+      if(isNaN(amount)){
+        alert('Вы ввели дыч');
+      }else{
+      
+        
+        fetch('https://open.er-api.com/v6/latest/USD').then(res => res.json())
+          .then(data => {
+            let start = data.rates[currency];
+            
+            
+            if(start)
+            {
+              let rate;
+            rate = data.rates[currencyExchange];
+            
+            if(rate){
+              let result = (amount*(rate/start));
+            console.log(rate);
+            console.log(`За ваши ${amount} ${currency} вы получите ${result} ${currencyExchange}`);
+              console.log(data) 
+            }else{
+              console.log('Была введена дичь')
+            }
+          }else{
+            alert('была введена дичь')
+          }
+            
+          })
+        }
+      }
+        //Currency drop down
+
+
+        {
+          
+          
+          fetch('https://open.er-api.com/v6/latest/USD').then(res => res.json())
+          .then(data => {
+            let str ='<select>';
+            let option = document.createElement('option');
+            let obj = data.rates;
+            console.log(obj)
+            let i=0;
+            for(let key in obj){
+              str += '<option>' + key + '</option>';
+              i++
+
+            }
+
+          
+            str+='</select>'
+            console.log(data) //изучите структуру, получаемую с сервера в консоли
+            console.log(i);
+            document.write(str);
+            
+        })
+        
+        
+
+        }
+
+        //Currency table
+
+
+{
+fetch('https://open.er-api.com/v6/latest/USD').then(res => res.json())
+      
+     .then(data => {
+      let i=0
+      let str = '<table>';
+    
+      let rates = data.rates;
+      let result;
+
+      str += '<tr >' + '<th>' + '</th>'
+      for(let key in rates){
+        str+='<th >' + key + '</th>'
+        }
+        str += '</tr>' 
+        
+        
+        
+
+      for(let key in rates){
+        console.log(key + '!');
+        
+        
+        str += '<tr>' + '<th>' + key + '</th>' 
+        
+        for(let m in rates){
+          
+          let res = (rates[key]/ rates[m]).toFixed(2);
+
+          
+
+          
+          str += '<th >' + res + '</th>'
+          i++;
+        }
+        str+='</tr>'
+
+      }
+        console.log(`i = ${i}` )  
+        str+= "</table>"
+      document.write(str)
+        })
+}
+
+//
+
+ 
+
+
+
+
+
+
+
+                  </script>
+  </body>
+</html>

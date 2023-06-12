@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>A-level</title>
+    <link
+      rel="icon"
+      href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67"
+    />
+    <link media="all" rel="stylesheet" href="reset.css" />
+    <link media="all" rel="stylesheet" href="style.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <main></main>
+
+    <script>
+
+      // Temperature
+
+      let a = (a) => (a*9/5)+32;
+
+      console.log(a(2));
+
+// rgb
+
+
+{
+        let b = (r,g,b) => {
+          r = r.toSrting(16);
+          if(r<2){
+            r+=r;
+          }
+
+          g = g.toSrting(16);
+          if(g<2){
+            g+=g
+          }
+
+          b = b.toSrting(16)
+            if(b<2){
+              b+=b
+            }
+          let result = r + g +b ;
+          console.log(`New color = ${result}`);
+
+
+          
+        }
+        
+      }
+
+      //flats
+      {
+        let d = (floor,numF,flat) => {
+          let result = {};
+          let blockF = Math.ceil(flat/(floor*numF)); // номер подъезда
+          result.blockF = blockF;
+          
+
+          let flatF = (flat/numF)%floor;
+          if(flatF===0){
+            alert(floor);
+            result.floor = floor;
+            
+          }else{
+          alert(Math.ceil(flatF));
+          result.floor = Math.ceil(flatF);
+          }
+          console.log(result);
+
+
+        }
+
+
+
+      }
+
+      //Credentials
+      {
+        let b = ()=>{
+          let fullName = {};
+          let surname = prompt('Введите фамилию').trim();
+          let name = prompt('Введите имя').trim();
+          let nameF = prompt('Введите отчество').trim();
+          const capitalize = str => {
+          let result = str.slice(0,1).toUpperCase()+ str.slice(1).toLowerCase();
+    
+     
+              return result //именно этот код обеспечит возврат результата функции
+            }
+
+            fullName.surname = capitalize(surname);
+            fullName.name = capitalize(name);
+            fullName.nameF = capitalize(nameF);
+
+        console.log(fullName)
+        }
+      }
+
+
+      // new Line
+      
+      {
+        let f = (str) =>{
+          let arr = str.split('\\n');
+            console.log(arr);
+            let result = arr.join('\n');
+            alert(result);
+        }
+      }
+
+      // prompt OR 
+
+      {
+        let f = questionAbout=> prompt(questionAbout)||(console.log('Обнаружена дичь'));
+        let age = f('What is your name?');
+        console.log(age);
+        
+      }
+
+      //Login And Password
+
+      {
+        
+       let f = (log=prompt('Введите логин'),pass=prompt('Введите пароль'))=>{
+        let login = "admin";
+        let password = "qwerty";
+
+        if (login === log && password === pass) {
+          alert("congratulations");
+        } else {
+          alert("Error");
+        }}
+        f('admin','qwerty');
+        f();
+        f('admin')
+      }
+//for table
+
+      {
+        let arr2 = []
+      arr2[0] = ['Name', 'Middle-name', 'Surname'], 
+      arr2[1] = ['Иван', 'Иванович', 'Иванов'], 
+      arr2[2] = ['Петров','Петр', 'Петрович'],
+      arr2[3] = ['Михайлов', 'Михаил', 'Михайлович']; 
+          const arrInTable = (anyArray) => {
+          let   i   = 0
+              let   result = '<table border = "1">'
+              for (let character of anyArray){ 
+                  result += "<tr></tr>"
+                  for (let letter of character){ 
+                      result += (i % 2) ? "<td style=background-color:#0095ff>" + letter + "<td>" : "<td style=background-color:#ca9500>" + letter + "<td>" 
+                      }
+                      i++
+                  }
+                  return document.write(result)
+      } 
+      //arrInTable(arr)
+      arrInTable(arr2)
+    }
+//Filter Lexics
+
+  {
+    let f = ()=>{
+      let a = prompt('Введите строку');
+      let arr = a.split(' ').filter(isBad).join(',');
+      console.log(arr);
+      
+    }
+
+    function isBad(x){
+    let arr2 = ['бляха', 'муха', "пляха", "шабля"];
+
+    for(let elem of arr2){
+      if(!(x === elem)){
+        return true;
+      }else{
+        return false;
+      }
+    }
+  }
+  f()
+}
+
+//Currency Table
+{let f = ()=>{
+
+
+  fetch('https://open.er-api.com/v6/latest/USD').then(res => res.json())
+      
+      .then(data => {
+       let i=0
+       let str = '<table>';
+       let arr = [];
+       let arr5 = [''];
+     
+       let rates = data.rates;
+       let result;
+ 
+       str += '<tr >' + '<th>' + '</th>'
+       for(let key in rates){
+        arr5.push(key);
+        
+         str+='<th >' + key + '</th>'
+         }
+         
+         arr.push(arr5);
+         
+         
+         
+ 
+       for(let key in rates){
+         console.log(key + '!');
+         let arr2 = [];
+         arr2.push(key);
+         
+         
+         str += '<tr>' + '<th>' + key + '</th>' 
+         
+         for(let m in rates){
+           
+           let res = (rates[key]/ rates[m]).toFixed(2);
+            
+            arr2.push(res);
+           
+            
+           
+           str += '<th >' + res + '</th>'
+           i++;
+         }
+         str+='</tr>'
+         arr.push(arr2);
+
+         
+ 
+       }
+         
+       const arrInTable = (anyArray) => {
+          let   i   = 0
+              let   result = '<table border = "1">'
+              for (let character of anyArray){ 
+                  result += "<tr></tr>"
+                  for (let letter of character){ 
+                      result += (i % 2) ? "<td style=background-color:#0095ff>" + letter + "<td>" : "<td style=background-color:#ca9500>" + letter + "<td>" 
+                      }
+                      i++
+                  }
+                  return document.write(result)
+      } 
+
+      arrInTable(arr)
+         })
+
+
+}
+f();}
+
+//Form
+const car2 = {
+         "Name":"chevrolet chevelle malibu",
+        "Cylinders":8,
+        "Displacement":307,
+        "Horsepower":130,
+        "Weight_in_lbs":3504,
+        "Origin":"USA",
+        "in_production": false
+    }
+    let func = (anyObject)=>{
+      let typeOfValue = {'boolean': 'checkbox', 'number': 'number', 'string': 'text'};
+      let str = "<form>";
+      let i = 0;
+         let pairs = Object.entries(anyObject);
+         for(let [key,value] of pairs){
+          str+='<div style =\"width:10%\">';
+          let type = typeof value;
+          let view = typeOfValue[type];
+          str+= `<label> ${key} <input style=\"border: 1px dotted green\"; type = ${view} value= "${value}"</label>`
+          i++;
+          str+="</div>"
+         }
+         str+='</form>'
+
+         
+        document.write(str);
+    }
+
+    func(car2)
+    //Array of objects sort
+
+    var persons = [
+    {name: "Иван", age: 17},
+    {name: "Мария", age: 35},
+    {name: "Алексей", age: 73},
+    {name: "Яков", age: 12},
+    ]
+    
+
+   
+    
+    function sort(array,key){
+
+        let result = array.sort((a,b)=>a[key] > b[key] ? 1 : -1);
+        console.log(result);
+        
+    }
+    sort(persons, "age"); 
+    
+    
+    sort(persons, "name", false)
+
+    sort(persons,"name")
+ 
+
+    //
+
+    var persons = [
+    {name: "Иван", age: 17},
+    {name: "Мария", age: 35},
+    {name: "Алексей", age: 73},
+    {name: "Яков", age: 12},
+      ]
+
+       sort = (arr,field, value = true )=>{
+        let result = [...arr];
+        if(value){
+          return result.sort((a, b) => a[field] > b[field] ? 1 : -1);
+          }else{
+            return result.sort((a,b)=>a[field] < b[field] ? 1 : -1);
+          }
+            
+          console.log(result)
+      }
+
+      sort(persons, "age"); 
+    
+    
+    sort(persons, "name", false);
+
+    sort(persons,"name");
+     
+    // table
+
+    {
+
+      sortSuper = (arr,field, value = true )=>{
+        let result = [...arr];
+        if(value){
+           result.sort((a, b) => a[field] > b[field] ? 1 : -1);
+          }else{
+             result.sort((a,b)=>a[field] < b[field] ? 1 : -1);
+          }
+
+
+            
+          let arr2 = [];
+          
+          let str = '<table>';
+            str += '<tr>'
+          for(let elem of result){
+            for(let key in elem){
+              if (arr2.indexOf(key) === -1) {
+            arr2.push(key);
+            str +=  `<th style="border: 2px outset violet;">${key}</th>`
+        }
+      }
+    }
+        str+= '</tr>';
+        str+='<tr>'
+          console.log(arr2);
+              for(let elem of result){
+                    
+                      for(let col of arr2){
+                        if(elem[col]===undefined){
+                          str+=`<td></td>`
+                            }else{
+                                str+=`<td> ${elem[col]} </td>`
+                                    }
+              
+                              }
+            str += '</tr>'
+        }
+
+
+            
+
+          
+          
+
+          str+='</table>'
+
+          document.write(str);
+      }
+
+      var persons = [
+    {name: "Иван", age: 17},
+    {name: "Мария", age: 35},
+    {name: "Алексей", age: 73},
+    {name: "Яков", age: 12},
+      ]
+      sortSuper(persons, "age"); 
+
+
+     let arr7= [
+   {
+      "Name":"chevrolet chevelle malibu",
+      "Cylinders":8,
+      "Displacement":307,
+      "Horsepower":130,
+      "Weight_in_lbs":3504,
+      "Origin":"USA"
+   },
+   {
+      "Name":"buick skylark 320",
+      "Miles_per_Gallon":15,
+      "Cylinders":8,
+      "Displacement":350,
+      "Horsepower":165,
+      "Weight_in_lbs":3693,
+      "Acceleration":11.5,
+      "Year":"1970-01-01",
+   },
+   {
+      "Miles_per_Gallon":18,
+      "Cylinders":8,
+      "Displacement":318,
+      "Horsepower":150,
+      "Weight_in_lbs":3436,
+      "Year":"1970-01-01",
+      "Origin":"USA"
+   },
+   {
+      "Name":"amc rebel sst",
+      "Miles_per_Gallon":16,
+      "Cylinders":8,
+      "Displacement":304,
+      "Horsepower":150,
+      "Year":"1970-01-01",
+      "Origin":"USA"
+   },
+]
+sortSuper(arr7,'Name');
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+    
+
+    //Calc FUNC
+{
+    let a = Number(prompt('Введите текущие показания газового счётчика(без нулей)'));
+            let b = Number(prompt('Введите предыдущие показания газового счётчика(без нулей)'));
+            
+            let payment = +(prompt('Введите текущий тариф за газ (на сегодняшний день 7,95 грн/куб) '));
+            
+} // было
+
+
+// Стало 
+
+{
+
+  let func = (a = Number(prompt('Введите текущие показания газового счётчика(без нулей)')),b = Number(prompt('Введите предыдущие показания газового счётчика(без нулей)')),c = 7.95) => {
+    let difference = a-b;
+    if(difference>0){
+            alert("За этот месяц Вы потребили "+ difference + "кубов газа, Вам необходимо оплатить " + Number(c*difference) + "грн");
+          }else{
+            alert("Снимите с счётчика магнит");
+          }
+
+  }
+  func();
+}
+
+
+
+
+    
+
+
+
+
+
+
+                  </script>
+  </body>
+</html>

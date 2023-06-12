@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>A-level</title>
+    <link
+      rel="icon"
+      href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67"
+    />
+    <link media="all" rel="stylesheet" href="reset.css" />
+    <link media="all" rel="stylesheet" href="style.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <main></main>
+
+    <script>
+//blocks
+let a = 10
+{
+    let b = 20
+    {
+        let c = 30
+        //какие тут будут значения переменных a,b,c,d
+        
+        //a=10 b=20 c= 30 d = undefined
+        
+        b++
+        a *= 10
+    }
+    {
+        let c = 50
+        //какие тут будут значения переменных a,b,c,d
+        // a=100 b=21 c = 50
+        
+       
+        b += 500
+    }
+    {
+        const a = 100500
+        const d = "value"
+        //какие тут будут значения переменных a,b,c,d
+        // a=100500 b= 521 c= undefined d= 'value'
+        
+        {
+            let a = -50
+            b     = 1000
+            //какие тут будут значения переменных a,b,c,d
+            // a=-50 b =1000, c=undifined d=indefined 
+        }
+        //какие тут будут значения переменных a,b,c,d
+        //a=100500, b = 1000, d='value' c = undefined 
+       
+    }
+    //какие тут будут значения переменных a,b,c,d
+    //a =100,b=1000, c,d= undefined
+    
+}
+//какие тут будут значения переменных a,b,c,d
+//a = 10  b,c,d =undefined
+
+//comparison if
+
+var age = +prompt("Сколько вам лет?","");
+if(age<0){
+  alert('Вы ввели дичь')
+}else if (age < 18){
+    alert("школьник");
+}
+else if (age > 18 && age < 30){
+    alert("молодеж");
+}
+else if (age > 30 && age < 45){
+    alert("зрелость");
+}
+else if (age > 45 && age < 60){
+    alert("закат");
+}
+else if (age > 60){
+    alert("как пенсия?");
+}
+else {
+    alert("то ли киборг, то ли KERNESS"); 
+}
+
+
+//sizes
+{
+  
+let g = +prompt(
+            "Введите Французский размер одежді для перевода в итальянскую"
+          );
+          
+        switch(g){
+          case 36 : 
+          alert("Итальянский размер = " + (g + 2));
+          break;
+          case 38:
+          alert("Итальянский размер = " + (g + 2));
+          break;
+          case 40:
+          alert("Итальянский размер = " + (g + 2));
+          break;
+          case 42:
+          alert("Итальянский размер = " + (g + 2));
+          break;
+          case 44:
+          alert("Итальянский размер = " + (g + 2));
+          break;
+          case 46:
+          alert("Итальянский размер = " + (g + 2));
+          break;
+          case 48:
+          alert("Итальянский размер = " + (g + 2));
+          break;
+          case 50:
+          alert("Итальянский размер = " + (g + 2));
+          break;
+
+        }
+
+    
+
+
+      }
+      //switch: if
+
+      let color = prompt("Введите цвет","");
+    if (color==='red'){
+    document.write("<div style='background-color: red;'>красный</div>");
+  }else if (color==='black'){
+    document.write("<div style='background-color: black; color: white;'>черный</div>");
+  }else if(color==='blue'){
+    document.write("<div style='background-color: blue;'>синий</div>");
+
+  }else if(color==='green'){
+    document.write("<div style='background-color: green;'>зеленый</div>");
+
+  }else {
+
+    
+  document.write("<div style='background-color: gray;'>Я не понял</div>");
+}
+//noswitch
+
+{
+
+  const noSwitch = (key, cases, defaultKey='default') => {
+    if(cases[key]){
+        cases[key]();
+    } else {
+        cases[defaultKey]();
+    }
+  }
+
+  const drink = prompt("Что вы любите пить")
+  noSwitch(drink, {
+      воду: () =>  console.log('Самый здоровый выбор!'),
+      чай(){
+          console.log('Вкусная и полезная штука. Не переусердствуйте с сахаром')
+      },
+      "пиво": () => console.log('Хорошо летом, да в меру'),
+      виски: function(){
+          console.log('Да вы, батенька, эстет! Не забудьте лед и сигару')
+      },
+      default(){
+          console.log('шото я не понял')
+      }
+  })
+}
+
+//closure calc
+{
+  fetch('https://open.er-api.com/v6/latest/USD').then(res => res.json())
+      .then(data => {
+        const entry =  Object.entries(data.rates)
+
+        for (let [key,value] of entry){
+            const button = document.createElement('button')
+            button.innerHTML = key
+            document.body.appendChild(button)
+            button.onclick = () => {
+              let sum = prompt('Введите сумму, которую нужно перевести в USD:')
+              let result = sum/value
+              alert(`За ${sum} ${key} Вы получите ${result.toFixed(3)} USD`)
+            }
+        }
+      }
+  )
+}
+//closure calc 2
+  
+
+
+                  </script>
+  </body>
+</html>

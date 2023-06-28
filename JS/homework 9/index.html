@@ -16,258 +16,291 @@
     <main></main>
 
     <script>
-//while confirm
+      //while confirm
 
-while(!confirm()){
+      while (!confirm()) {}
+      console.log("finish");
 
-}
-console.log('finish')
-
-// array fill
-let words =function ()
-{let arr = [];
-while(a=prompt()){
-  arr.push(a);
-}
-console.log(arr);}
-words();
-///array fill nopush
-{let words =function ()
-{let arr = [];
-  let i=0;
-while(a=prompt()){
-  arr[i]=(a);
-  i++
-}
-console.log(arr);}
-words();
-}
-
-//infinite probability
-
-let iter = function(){
-  let i = 0;
-  
-  while(true){
-    if(Math.random() > 0.9){
-      break;
-    }else{
-      i++;
-    }
-  }
-  console.log(i);
-  
-   
-  
-}
-iter();
-//empty loop
-while(!(prompt('type text','1'))){};
-///progression sum
-let Sum = function(y){
-  let result = 0;
-  
-  for(let i=1;i<=+y;i+=3){
-    result +=i;
-    console.log(result);
-
-  }
-  console.log(result);
-
-}
-Sum(9);
-Sum(prompt());
-//chess one line
-
-let a = function(y){
-  let str = '';
-  for(let i=1; i<=+y; i++){
-    str+=' '+'#'
-  }
-  str+=' ';
-  console.log(str);
-
-}
-a(2);
-
-//numbers
-{let str=''
-for(let i = 0; i<10; i++){
-  for(let i = 0; i<10; i++){
-    str += i;
-
-  }
-  str+= '\n';
-
-}
-console.log(str);
-}
-//chess
-{
-let a = function(numberRaw=2,numberColumn=2){
-  let str = '';
-  for(let j = 0; j<+numberRaw;j++) {
-
-   if(j%2===0){ for(let i = 0; i<+numberColumn;i++) {
-      if(i%2===0){
-        str+='.'
-      }else{
-        str+='#'
+      // array fill
+      let words = function () {
+        let arr = [];
+        while ((a = prompt())) {
+          arr.push(a);
+        }
+        console.log(arr);
+      };
+      words();
+      ///array fill nopush
+      {
+        let words = function () {
+          let arr = [];
+          let i = 0;
+          while ((a = prompt())) {
+            arr[i] = a;
+            i++;
+          }
+          console.log(arr);
+        };
+        words();
       }
 
+      //infinite probability
 
-  }
-  str+='\n'
-}else{
-  for(let i = 0; i<+numberColumn;i++) {
-      if(i%2===0){
-        str+='#'
-      }else{
-        str+='.'
+      let iter = function () {
+        let i = 0;
+
+        while (true) {
+          if (Math.random() > 0.9) {
+            break;
+          } else {
+            i++;
+          }
+        }
+        console.log(i);
+      };
+      iter();
+      //empty loop
+      while (!prompt("type text", "1")) {}
+      ///progression sum
+      let Sum = function (y) {
+        let result = 0;
+
+        for (let i = 1; i <= +y; i += 3) {
+          result += i;
+          console.log(result);
+        }
+        console.log(result);
+      };
+      Sum(9);
+      Sum(prompt());
+      //chess one line
+
+      let a = function (y) {
+        let str = "";
+        for (let i = 1; i <= +y; i++) {
+          str += " " + "#";
+        }
+        str += " ";
+        console.log(str);
+      };
+      a(2);
+
+      //numbers
+      {
+        let str = "";
+        for (let i = 0; i < 10; i++) {
+          for (let i = 0; i < 10; i++) {
+            str += i;
+          }
+          str += "\n";
+        }
+        console.log(str);
       }
+      //chess
+      {
+        let a = function (numberRaw = 2, numberColumn = 2) {
+          let str = "";
+          for (let j = 0; j < +numberRaw; j++) {
+            if (j % 2 === 0) {
+              for (let i = 0; i < +numberColumn; i++) {
+                if (i % 2 === 0) {
+                  str += ".";
+                } else {
+                  str += "#";
+                }
+              }
+              str += "\n";
+            } else {
+              for (let i = 0; i < +numberColumn; i++) {
+                if (i % 2 === 0) {
+                  str += "#";
+                } else {
+                  str += ".";
+                }
+              }
+              str += "\n";
+            }
+          }
+          console.log(str);
+        };
 
+        a(10, 10);
+      }
+      //cubes
+      {
+        let arr = ["r", "s", "f", "d", "a"];
+        let result = [];
+        while (arr.length > 0) {
+          result.unshift([Number(arr.length) * Number(arr.length)]);
+          arr.shift();
+        }
+        console.log(result);
 
-  }
-  str+='\n'
-
-}
-
-}
-console.log(str);
-
-  }
-  
-
-a(10,10)
-}
-//cubes
-{
-  let arr = ['r','s','f','d','a'];
-  let result = [];
-  while(arr.length>0){
-    result.unshift([Number(arr.length)*Number(arr.length)]);
-    arr.shift();
-
-  }
-  console.log(result);
-  
-  //multiply table
-  {let arr = Array(10);
+        //multiply table
+        {
+          let arr = Array(10);
           for (let i = 1; i < 10; i++) {
             arr[i] = [...Array(10)].map((_, j) => i * j);
           }
 
-          console.log(arr)
+          console.log(arr);
 
           // Делаем таблицу текстом
-          let s = '';
+          let s = "";
           for (let i = 1; i < 10; i++) {
-            s += arr[i].slice(1).join(' ') + '\n';
+            s += arr[i].slice(1).join(" ") + "\n";
           }
 
-          console.log(s);         // Вся таблица
+          console.log(s); // Вся таблица
           console.log(arr[5][5]);
           console.log(arr[2][3]);
           console.log(arr[5][3]); // 2
-  }
-
-  ///read array of objects
-{
-  let a = function readArrayOfObjects(){
-    
-  let arr = [];
-while(confirm()){
-  let obj = {};
-  while((key = prompt('Введите ключ'))&&(value = prompt('введите значение ключа'))){
-    obj[key]=value;
-
-  }
-  arr.push(obj);
-}
-console.log(arr);
-
-}
-a()
-}
-
-//ромбик
-let str = '';
-for(let i=5, j=1;j<=11; i--,j+=2){
-    for(let o = 0; o<i;o++){
-      str+='.';
-    }
-    for(let m=0; m<j;m++){
-      str+='#';
-    }
-    for(let o = 0; o<i;o++){
-      str+='.';
-    }
-    str+='\n'
-}
-for(let i=1, j=9;j>=1; i++,j-=2){
-    for(let o = 0; o<i;o++){
-      str+='.';
-    }
-    for(let m=0; m<j;m++){
-      str+='#';
-    }
-    for(let o = 0; o<i;o++){
-      str+='.';
-    }
-    str+='\n'
-}
-console.log(str);
-
-
-
-
-//Dom multiple table
-
-let table, row, cell, i, j;
-
-        table = document.createElement('table');
-
-        table.style.textAlign = 'right';
-
-        table.style.fontFamily = 'monospace';
-
-        for (i=1; i<10; i++) {
-
-            row = document.createElement('tr');
-
-            for (j=1; j<10; j++) {
-
-                cell = document.createElement(i == 1 || j == 1 ? 'th' : 'td');
-
-                cell.appendChild(document.createTextNode(i*j));
-
-                cell.style.padding = '4px';
-
-                cell.style.width = 100 / 9 + '%';
-
-                row.appendChild(cell);
-
-            }
-
-            table.appendChild(row);
-
         }
 
+        ///read array of objects
+        {
+          let a = function readArrayOfObjects() {
+            let arr = [];
+            while (confirm()) {
+              let obj = {};
+              while (
+                (key = prompt("Введите ключ")) &&
+                (value = prompt("введите значение ключа"))
+              ) {
+                obj[key] = value;
+              }
+              arr.push(obj);
+            }
+            console.log(arr);
+          };
+          a();
+        }
+
+        //ромбик
+        let str = "";
+        for (let i = 5, j = 1; j <= 11; i--, j += 2) {
+          for (let o = 0; o < i; o++) {
+            str += ".";
+          }
+          for (let m = 0; m < j; m++) {
+            str += "#";
+          }
+          for (let o = 0; o < i; o++) {
+            str += ".";
+          }
+          str += "\n";
+        }
+        for (let i = 1, j = 9; j >= 1; i++, j -= 2) {
+          for (let o = 0; o < i; o++) {
+            str += ".";
+          }
+          for (let m = 0; m < j; m++) {
+            str += "#";
+          }
+          for (let o = 0; o < i; o++) {
+            str += ".";
+          }
+          str += "\n";
+        }
+        console.log(str);
+
+        //Dom multiple table
+
+        let table
+
+        table = document.createElement("table");
+
+        table.style.textAlign = "right";
+
+        table.style.fontFamily = "monospace";
+
+        for (let i = 1; i < 10; i++) {
+        const  row = document.createElement("tr");
+
+          for (let j = 1; j < 10; j++) {
+            
+            let cell = document.createElement(i == 1 || j == 1 ? "th" : "td");
+
+            cell.appendChild(document.createTextNode(i * j));
+
+            cell.style.padding = "4px";
+
+            cell.style.width = 100 / 9 + "%";
+            
+          cell.addEventListener('mouseover',()=>cell.style.backgroundColor='blue' )
+          cell.addEventListener('mouseout',()=>cell.style.backgroundColor='' )
+
+            row.appendChild(cell);
+            
+          }
+
+          table.appendChild(row);
+        }
+        
+        
+
         document.body.appendChild(table);
+        // table.onmouseover=function(event){
+        //   let target=event.target;
+        //   target.style.background='yellow';
+        // }
+        // table.onmouseout = function(event) {
+        // let target = event.target;
+        // target.style.background = '';
 
-
-
-  
       }
+      //DOM: Highlight cross//
+      {
+        
+        let table, row, cell, i, j;
+
+        table = document.createElement("table");
+
+        table.style.textAlign = "right";
+
+        table.style.fontFamily = "monospace";
+
+        for (i = 1; i < 10; i++) {
+          row = document.createElement("tr");
+
+          for (j = 1; j < 10; j++) {
+            cell = document.createElement(i == 1 || j == 1 ? "th" : "td");
+
+            cell.appendChild(document.createTextNode(i * j));
+
+            cell.style.padding = "4px";
+
+            cell.style.width = 100 / 9 + "%";
+            
+          cell.addEventListener('mouseover',()=>cell.style.backgroundColor='blue' )
+          cell.addEventListener('mouseout',()=>cell.style.backgroundColor='' )
+
+            row.appendChild(cell);
+            
+          }
+
+          table.appendChild(row);
+        }
+        
+        
+
+        document.body.appendChild(table);
+        // table.onmouseover=function(event){
+        //   let target=event.target;
+        //   target.style.background='yellow';
+        // }
+        // table.onmouseout = function(event) {
+        // let target = event.target;
+        // target.style.background = '';
+};
 
 
-    
 
 
 
 
+      
 
-
-                  </script>
+    </script>
   </body>
 </html>

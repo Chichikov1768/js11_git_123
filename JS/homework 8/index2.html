@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>A-level</title>
+    <link
+      rel="icon"
+      href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67"
+    />
+    <link media="all" rel="stylesheet" href="reset.css" />
+    <link media="all" rel="stylesheet" href="style.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <main></main>
+
+    <script>
+      let div = document.createElement('div');
+      div.id = 'rate';
+      let div2 = document.createElement('div');
+      div2.id = 'result';
+      let select = document.createElement('select');
+      let select2 = document.createElement('select');
+      select.id='from';
+      select2.id='to';
+      let input = document.createElement('input');
+      input.id='amount';
+      input.type='number';
+      
+
+
+
+      fetch('https://open.er-api.com/v6/latest/USD').then(res => res.json())
+      .then(data => {
+        const entry =  Object.entries(data.rates)
+
+        for (let [key,value] of entry){
+          let option = document.createElement('option');
+          option.setAttribute('value',key);
+          option.innerText=key;
+          
+
+          let option2 = document.createElement('option');
+          // option2.setAttribute('value','key');
+          // option.value=key
+          option2.innerText=key;
+
+
+
+          select.appendChild(option);
+          select2.appendChild(option2);
+
+          
+          document.body.appendChild(select);
+          document.body.appendChild(select2);
+
+
+            
+            div2.onclick = () => {
+              let sum = prompt('Введите сумму, которую нужно перевести в USD:')
+              let result = sum/value
+              alert(`За ${sum} ${key} Вы получите ${result.toFixed(3)} USD`)
+            }
+        }
+      }
+  )
+
+
+
+
+                  </script>
+  </body>
+</html>

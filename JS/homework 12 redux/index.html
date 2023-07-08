@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>A-level</title>
+    <link
+      rel="icon"
+      href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67"
+    />
+    <link media="all" rel="stylesheet" href="reset.css" />
+    <link media="all" rel="stylesheet" href="style.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <main display='flex' flex-direction="row">
+      
+      <div id="rose"><img src="https://florina.kh.ua/image/cache/catalog/kategorii/cvety/rozy/roza-gran-pri-60-sm-ukraine-1-555x555.jpg" height="150px"width='150px'>
+        <h2>Розы</h2><p></p><i>50грн</i></p>
+        <!-- <span><input id='rose1' type = 'checkbox'> <input id="rose2"type='number' value='7'></span> -->
+      </div>
+      
+      <div id=""><img src="https://rozariy.com/image/cache/catalog/demo/poshtuchno/pink-tulip-600x600.jpg.webp" height="150px"width='150px'>
+        <h2>Тюльпаны</h2>
+        <p><i>30грн</i></p>
+        <!-- <span><input id='rose1' type = 'checkbox'> <input id="rose2"type='number' value='7'></span> -->
+      </div>
+      
+      <div id="rose"><img src="https://donpion.ua/static/media/uploads/product/One_flower/01734/.thumbnails/pion.jpg/pion-0x700.jpg" height="150px"width='150px'>
+        <h2>Пионы</h2>
+        <p><i>35грн</i></p>
+        <!-- <span><input id='rose1' type = 'checkbox'> <input id="rose2"type='number'value='7'></span> -->
+      </div>
+
+      </div>
+      <div id="buy">
+        <select id="s1">
+          <option value = "roses">Розы</option>
+          <option value = "tulips">Тюльпаны</option>
+          <option value = "peonies">Пионы</option>
+        </select>
+        <input id="in1" type="number" text="количество" value="1" min="0"><button id ='button'>Купить</button><br>
+        <span id="span" height="15px" width="50px"></span><br>
+        <span>Денег Вы внесли<input id="in2" type="number" text="количество" value="1" min="0"></span>
+      </div>
+    </main>
+    <article>
+      <div>
+
+      </div>
+    </article>
+
+    <script>
+    var b_tulips = СКОКА => ({type: 'КУПИТЬ', ШО: 'tulips', СКОКА:call(),БАБЛО:amount}); //actionCreator для покупки тюльпанов
+    var b_roses = СКОКА => ({type: 'КУПИТЬ', ШО: 'roses', СКОКА:call(),БАБЛО:amount});//роз
+    var b_peonies = СКОКА => ({type: 'КУПИТЬ', ШО: 'peonies', СКОКА:call(),БАБЛО:amount});//пионов
+
+    let btn = document.getElementById('button') //кнопка покупки
+    let buy = document.getElementById('buy'); // див покупки
+    
+    let a = Number(document.getElementById('in1').value);
+    let b = document.getElementById('s1').value; 
+    let span = document.getElementById('span')
+    let c = document.getElementById('in1');
+    let call = ()=>(Number(document.getElementById('in1').value)); //значение инпута заказа
+    let call1 = ()=>(document.getElementById('s1').value);//значание селекта
+    let amount; //сумма оплаты
+   
+    
+    
+
+
+      function createStore(reducer){
+        
+      let state       = reducer(undefined, {}) //стартовая инициализация состояния, запуск редьюсера со state === undefined
+      let cbs         = []                     //массив подписчиков
+      
+      
+ 
+
+
+
+    
+      const getState  = () => state            //функция, возвращающая переменную из замыкания
+      const subscribe = cb => (cbs.push(cb),   //запоминаем подписчиков в массиве
+                             () => cbs = cbs.filter(c => c !== cb)) //возвращаем функцию unsubscribe, которая удаляет подписчика из списка
+      const dispatch  = action => { 
+        const newState = reducer(state, action) //пробуем запустить редьюсер
+        if (newState !== state){ //проверяем, смог ли редьюсер обработать action
+            state = newState //если смог, то обновляем state 
+            for (let cb of cbs)  cb() //и запускаем подписчиков
+        }
+      }
+      function reducer(state, {type, ШО, СКОКА,БАБЛО}){ //объект action деструктуризируется на три переменных
+        if (!state){ //начальная уборка в ларьке:
+        return {
+          cash:1000,
+          roses: {q:100,p:50},
+          tulips: {q:100,p:30},
+          peonies: {q:100,p:35}
+        }
+        }
+        
+          if (type === 'КУПИТЬ'){ //если тип action - КУПИТЬ, то:
+
+            
+            
+            
+        if(order1()>amount){
+          console.log(order1(),amount)
+          alert("Недостаточно денег")
+          return state
+
+        }else if(store.getState()[call1()].q<call()){
+          alert(`У нас не достаточно ${call1()}. Для заказа доступно только ${store.getState()[call1()].q} ${call1()}`)
+          return state
+
+        } else {
+          let result = {
+            ...state, //берем все что было из ассортимента
+            [ШО]: {q:state[ШО].q - (Number(СКОКА)),p:state[ШО].p}, //и уменьшаем то, что покупается на количество
+            cash:state.cash+=Number(order1())
+            
+        }
+        
+          
+        return result}
+         }
+          return state //если мы не поняли, что от нас просят в `action` - оставляем все как есть
+        }
+
+
+    
+      return {
+        getState, //добавление функции getState в результирующий объект
+        dispatch,
+        subscribe //добавление subscribe в объект
+      }
+      } 
+
+    let store = createStore();
+    console.log(store.getState());
+    span.innerText = `К оплате ${store.getState()[b].p*(a)} грн `
+    
+
+    s1.onchange = c.onchange=()=>{//input onchange
+      // let k = document.getElementById('in1').value
+      let y = call1();
+      console.log(y);
+      let res=Number(call())
+      span.innerText = `К оплате ${store.getState()[y].p*(res)} грн `
+      order=store.getState()[y].p*(res)
+      console.log(order)
+    }
+    
+  
+      
+    
+    btn.onclick=()=>{
+      let amn=Number(document.getElementById('in2').value);
+      amount = amn;
+      let res=Number(call())//количесвто заказанных цветов
+      let y = call1();// вібранный товар
+      order = store.getState()[y].p*(res)
+     
+      
+      console.log(amn,amount,order)
+      if(amount<order){
+        console.log('сработает редьюсер')
+      }
+      console.log(y)
+      if(y=='roses'){
+        console.log(store.dispatch(b_roses()))
+        console.log(store.getState())
+      }
+      if(y=="tulips"){
+        console.log(store.dispatch(b_tulips()))
+        console.log(store.getState())
+      }
+      if(y=="peonies"){
+        console.log(store.dispatch(b_peonies()))
+        console.log(store.getState())
+      }
+
+      }
+
+     function order1(){
+      return store.getState()[call1()].p*(Number(call()))}
+
+
+
+
+
+      
+
+    </script>
+  </body>
+</html>

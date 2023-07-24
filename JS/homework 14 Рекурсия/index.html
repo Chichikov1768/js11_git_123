@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>A-level</title>
+    <link
+      rel="icon"
+      href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67"
+    />
+    <link media="all" rel="stylesheet" href="reset.css" />
+    <link media="all" rel="stylesheet" href="style.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <main></main>
+
+    <script>
+      //     Рекурсия: HTML tree
+      {
+        const table = {
+          tagName: "table",
+          attrs: {
+            border: "1",
+          },
+          children: [
+            {
+              tagName: "tr",
+              children: [
+                {
+                  tagName: "td",
+                  children: ["1x1"],
+                },
+                {
+                  tagName: "td",
+                  children: ["1x2"],
+                },
+              ],
+            },
+            {
+              tagName: "tr",
+              children: [
+                {
+                  tagName: "td",
+                  children: ["2x1"],
+                },
+                {
+                  tagName: "td",
+                  children: ["2x2"],
+                },
+              ],
+            },
+          ],
+        };
+        htmlTree(table); //вернет <table border='1' ....
+
+        function htmlTree(obj) {
+          // которая рекурсивно создает HTML-строку из древовидной структуры данных Javascript любой вложенности.
+          let str = "";
+
+          if (typeof obj == "object") {
+            str += `<${obj.tagName}`;
+            if (obj.attrs != undefined) {
+              for (let elem in obj.attrs) {
+                str += ` ${elem} = '${obj.attrs[elem]}' `;
+              }
+            }
+            str += ">";
+            if (obj.children != undefined) {
+              for (let elem in obj.children) {
+                if (obj.children[elem] != undefined) {
+                  str += htmlTree(obj.children[elem]);
+                  if (obj.children[elem].tagName != undefined) {
+                    // str+='</'+`${obj.children[elem].tagName}`+'>'
+                  }
+                }
+              }
+              str += "</" + `${obj.tagName}` + ">";
+            }
+          }
+          if (typeof obj == "string") {
+            str += `${obj}`;
+          }
+
+          console.log(str);
+          return str;
+        }
+
+        //Рекурсия: DOM tree
+
+        {
+          const table = {
+            tagName: "table",
+            attrs: {
+              border: "1",
+            },
+            children: [
+              {
+                tagName: "tr",
+                children: [
+                  {
+                    tagName: "td",
+                    children: ["1x1"],
+                  },
+                  {
+                    tagName: "td",
+                    children: ["1x2"],
+                  },
+                ],
+              },
+              {
+                tagName: "tr",
+                children: [
+                  {
+                    tagName: "td",
+                    children: ["2x1"],
+                  },
+                  {
+                    tagName: "td",
+                    children: ["2x2"],
+                  },
+                ],
+              },
+            ],
+          };
+
+          function domTree(where, obj) {
+            // которая рекурсивно создает HTML-строку из древовидной структуры данных Javascript любой вложенности.
+            let str = "";
+            let where2 = where;
+
+            if (typeof obj == "object") {
+              let a = document.createElement(`${obj.tagName}`);
+              where.append(a);
+
+              if (obj.attrs != undefined) {
+                for (let elem in obj.attrs) {
+                  str += ` ${elem} = '${obj.attrs[elem]}' `;
+                  a.setAttribute(`${elem}`, `${obj.attrs[elem]}`);
+                }
+              }
+              str += ">";
+              if (obj.children != undefined) {
+                for (let elem in obj.children) {
+                  if (obj.children[elem] != undefined) {
+                    domTree(a, obj.children[elem]);
+                  }
+                }
+                str += "</" + `${obj.tagName}` + ">";
+              }
+            }
+            if (typeof obj == "string") {
+              console.log(where, obj, "3333");
+              where.innerHTML = `${obj}`;
+            }
+
+            console.log(str);
+            return str;
+          }
+
+          domTree(document.body, table);
+        }
+      }
+      //deep copy
+
+      {
+        function deepCopy(param) {
+          // первый вариант
+          let res = param;
+
+          if (!(res instanceof Object) || !Array.isArray(res)) {
+            // сравнение на объект, массив и нал
+            return res;
+          } else {
+            let result;
+            if (Array.isArray(res)) {
+              result = [];
+            } else {
+              result = {};
+            }
+            for (let elem in res) {
+              // перебор
+              console.log(elem, res[elem]);
+
+              if (typeof res[elem] == "string") {
+                result[elem] = res[elem];
+                console.log(1);
+              }
+              if (typeof res[elem] == "number") {
+                console.log(result, res[elem], elem);
+                result[elem] = res[elem];
+                console.log(2);
+              }
+              if (typeof res[elem] == "boolean") {
+                result[elem] = res[elem];
+                console.log(3);
+              }
+              if (typeof res[elem] === "undefined") {
+                result[elem] = res[elem];
+                console.log(4);
+              }
+
+              if (typeof res[elem] == "object") {
+                if (res[elem] == null) {
+                  result[elem] = res[elem];
+                } else {
+                  result[elem] = deepCopy(res[elem]);
+                }
+              }
+            }
+
+            return result;
+          }
+        }
+        const arr = [
+          1,
+          "string",
+          null,
+          undefined,
+          { a: 15, b: 10, c: [1, 2, 3, 4], d: undefined, e: true },
+          true,
+          false,
+        ];
+        const arr2 = deepCopy(arr); //
+      }
+
+      {
+        // Совершенный вариант
+
+        function deepCopy(param) {
+          let res = param;
+          if (!(res instanceof Object) || !Array.isArray(res)) {
+            // сравнение на объект, массив и нал
+            return res;
+          } else {
+            let result;
+            if (Array.isArray(res)) {
+              result = [];
+            } else {
+              result = {};
+            }
+            for (let elem in res) {
+              // перебор
+
+              result[elem] = deepCopy(res[elem]);
+            }
+            return result;
+          }
+        }
+        const arr = [
+          1,
+          "string",
+          null,
+          undefined,
+          { a: 15, b: 10, c: [1, 2, 3, 4], d: undefined, e: true },
+          true,
+          false,
+        ];
+        const arr2 = deepCopy(arr); //
+      }
+
+      //Stringify
+
+      function stringify(obj) {
+        let res = obj;
+        if (typeof res == "function") {
+          return;
+        }
+
+        if (typeof res == "string") {
+          return `"${res}"`;
+        } else if (
+          typeof res == "number" ||
+          typeof res == "boolean" ||
+          res === null
+        ) {
+          return `${res}`;
+        } else {
+          let result;
+          if (Array.isArray(res)) {
+            result = "[";
+            for (let elem in res) {
+              if (res[elem] == undefined) {
+                result += "null,";
+              } else {
+                result += stringify(res[elem]) + ",";
+              }
+            }
+            if (result.length > 1) {
+              result = result.slice(0, -1);
+            }
+            result += "]";
+            return result;
+          } else {
+            if (res instanceof Object) {
+              result = "{";
+              for (let elem in res) {
+                if (res[elem] !== undefined) {
+                  let a = `"${elem}"`;
+                  result += a + ":" + stringify(res[elem]) + ",";
+                }
+              }
+              if (result.length > 1) {
+                result = result.slice(0, -1);
+              }
+              result += "}";
+              return result;
+            }
+          }
+        }
+      }
+      
+    </script>
+  </body>
+</html>

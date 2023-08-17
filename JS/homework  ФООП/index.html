@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>A-level</title>
+    <link
+      rel="icon"
+      href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67"
+    />
+    <link media="all" rel="stylesheet" href="reset.css" />
+    <link media="all" rel="stylesheet" href="style.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <main></main>
+
+    <script>
+      //password
+      function Password(parent, open) {
+        let passForm = document.createElement("input");
+        let checkState = document.createElement("input");
+        checkState.type = "checkbox";
+        checkState.checked = open;
+        parent.append(passForm);
+        parent.append(checkState);
+
+        this.setValue = (value) => {
+          passForm.value = value;
+        };
+
+        this.getValue = function () {
+          return passForm.value;
+        };
+
+        this.setOpen = function (state) {
+          if (state) {
+            checkState.checked = state;
+            passForm.type = "password";
+          } else {
+            checkState.checked = state;
+            passForm.type = "text";
+          }
+        };
+
+        this.getOpen = function () {
+          return checkState.checked;
+        };
+        this.onChange;
+        this.onOpenChange;
+
+        checkState.oninput = () => {
+          this.setOpen(this.getOpen());
+          this.onOpenChange(this.getOpen());
+        };
+        passForm.oninput = () => this.onChange(this.getValue());
+      }
+      // Password()
+
+      let p = new Password(document.body, true);
+
+      p.onChange = (data) => console.log(data);
+      p.onOpenChange = (open) => console.log(open);
+
+      p.setValue("qwerty");
+      console.log(p.getValue());
+
+      p.setOpen(false);
+      console.log(p.getOpen());
+      //loginForm
+        function LoginForm(parent, open=false) {
+        let loginForm = document.createElement("input");
+
+        parent.append(loginForm);
+        let passForm = new Password(parent,open)
+        passForm.onChange = (data) => console.log(data);
+        passForm.onOpenChange = (open) => console.log(open); 
+
+        this.getValue = function () {
+          return loginForm.value;
+        };
+        let button = document.createElement('button');
+        button.innerText='Auth'
+        button.disabled=true;
+        parent.append(button)
+        
+
+        
+        parent.onchange= ()=>{  
+          console.log(this.getValue())
+          if(this.getValue() && (passForm.getValue())){
+        button.disabled=false;
+          }else{
+        button.disabled=true;
+      }}
+        
+      }
+      let b = new LoginForm(document.body, true);
+      
+      b.onChange = (data) => console.log(data);
+      b.onOpenChange = (open) => console.log(open);
+
+
+
+      
+    </script>
+  </body>
+</html>

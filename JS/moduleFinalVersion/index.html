@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>A-level</title>
+    <link
+      rel="icon"
+      href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67"
+    />
+    <link media="all" rel="stylesheet" href="reset.css" />
+    <link media="all" rel="stylesheet" href="style.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <header>
+      <div id="cartIcon">
+        <div id="imp">
+        <div><a href="#/login" id="authorization"
+          >Login<img
+            src="http://defaulticon.com/images/icons32x32/user-alt-1_0.png?itok=GKJ4CXbk>" /></a
+        ></div><div><a href="#/cart/"
+          ><img
+            src="http://defaulticon.com/images/icons32x32/cart-alt-2_0.png?itok=mfix9uMl"
+        /></a></div>
+        <span id="cartCount"></span>
+        </div>
+        <h2>Здесь могла быть ваша реклама</h2>
+        <span id="userName"></span>
+      </div>
+    </header>
+    <div id="mainContainer">
+      <aside id="aside"></aside>
+      <main id="main">Контент</main>
+    </div>
+
+    <script>
+      function createStore(reducer) {
+        let state = reducer(undefined, {}); //стартовая инициализация состояния, запуск редьюсера со state === undefined
+        let cbs = []; //массив подписчиков
+
+        const getState = () => state; //функция, возвращающая переменную из замыкания
+        const subscribe = (cb) => (
+          cbs.push(cb), //запоминаем подписчиков в массиве
+          () => (cbs = cbs.filter((c) => c !== cb))
+        ); //возвращаем функцию unsubscribe, которая удаляет подписчика из списка
+
+        const dispatch = (action) => {
+          if (typeof action === "function") {
+            //если action - не объект, а функция
+            return action(dispatch, getState); //запускаем эту функцию и даем ей dispatch и getState для работы
+          }
+          const newState = reducer(state, action); //пробуем запустить редьюсер
+          if (newState !== state) {
+            //проверяем, смог ли редьюсер обработать action
+            state = newState; //если смог, то обновляем state
+            for (let cb of cbs) cb(); //и запускаем подписчиков
+          }
+        };
+
+        return {
+          getState, //добавление функции getState в результирующий объект
+          dispatch,
+          subscribe, //добавление subscribe в объект
+        };
+      }
+
+      function combineReducers(reducers) {
+        function totalReducer(state = {}, action) {
+          const newTotalState = {};
+          for (const [reducerName, reducer] of Object.entries(reducers)) {
+            const newSubState = reducer(state[reducerName], action);
+            if (newSubState !== state[reducerName]) {
+              newTotalState[reducerName] = newSubState;
+            }
+          }
+          if (Object.keys(newTotalState).length) {
+            return { ...state, ...newTotalState };
+          }
+          return state;
+        }
+
+        return totalReducer;
+      }
+
+      const reducers = {
+        promise: promiseReducer, //допилить много имен для многих промисо
+        auth: localStoredReducer(authReducer, "auth"),
+        //часть предыдущего ДЗ
+        cart: localStoredReducer(cartReducer,'cart')     //часть предыдущего ДЗ
+      };
+
+      const totalReducer = combineReducers(reducers);
+
+      function promiseReducer(
+        state = {},
+        { type, name, status, payload, error }
+      ) {
+        if (type === "PROMISE") {
+          return {
+            ...state, //копирывание предыдущих ключей , чтобы ключи не терялись
+            [name]: { status, payload, error },
+          };
+        }
+        return state;
+      }
+      
+      function cartReducer(state={},{type,count,good}){
+        
+        // let state = reducer(undefined, {}); //стартовая инициализация состояния, запуск редьюсера со state === undefined
+        //         {
+        //     idТовара1: {count: количество1, good: {....инфа про товар с бэкэнда, включая цену, описание и картинки}},
+        //     idТовара2: {count: количество2, good: {....инфа про товар с бэкэнда, включая цену, описание и картинки}},
+        // }
+        
+
+        if(type==='CART_ADD'){
+          let {name,_id,price,description,images}=good;
+          console.log('1')
+          if(!(state[_id])){
+            return {
+            ...state,
+            [good._id]:
+            {count: count,
+              good:{name,price,description,images,_id}}
+            }
+
+            }else{
+            return {
+            ...state,
+            [good._id]:
+            {count: state[_id].count + count,
+              good:{name,price,description,images,_id}}
+            }
+          
+          } 
+        }
+        if(type==='CART_SUB'){
+          let {name,price,description,images,_id}=good;
+          if(state[good._id].count - count<= 0){
+            let newState = {...state};
+
+            delete newState[good._id]
+            return newState
+          }else{
+            return {
+              ...state,
+              [good._id]:{count:state[good._id].count-count,good:{name,price,description,images,_id}}
+            }                
+              
+            }
+        }
+        if(type==='CART_DEL') {
+          
+          let newState = {...state};
+
+            delete newState[good._id]
+            return newState
+          }
+        if(type==='CART_SET'){
+          let {name,price,description,images,_id}=good;
+
+          if(count<1) count = 1 // нужно прописать и в set и в add 
+          
+          return{
+            ...state,
+            [good._id]:
+            {count: count,
+              good:{name,price,description,images,_id}}
+            }
+          }
+        if(type==='CART_CLEAR'){
+          return {}
+        } 
+
+        return state
+
+      }
+    
+
+
+      const actionPending = (name) => ({
+        type: "PROMISE",
+        status: "PENDING",
+        name,
+      });
+      const actionFulfilled = (name, payload) => ({
+        type: "PROMISE",
+        status: "FULFILLED",
+        name,
+        payload,
+      });
+      const actionRejected = (name, error) => ({
+        type: "PROMISE",
+        status: "REJECTED",
+        name,
+        error,
+      });
+      const actionPromise = (name, promise) => async (dispatch) => {
+        dispatch(actionPending(name)); //сигнализируем redux, что промис начался
+        try {
+          const payload = await promise; //ожидаем промиса
+          dispatch(actionFulfilled(name, payload)); //сигнализируем redux, что промис успешно выполнен
+          return payload; //в месте запуска store.dispatch с этим thunk можно так же получить результат промиса
+        } catch (error) {
+          dispatch(actionRejected(name, error)); //в случае ошибки - сигнализируем redux, что промис несложился
+        }
+      };
+      
+
+      //Экшены корзины 
+      const actionCartAdd = (good, count=1) => ({type: 'CART_ADD', count, good}) // добавление товара
+
+      const actionCartSub = (good, count=1) => ({type: 'CART_SUB', count, good}) // Уменьшение количества товара.
+
+      const actionCartDel = (good) => ({type: 'CART_DEL', good})//Удаление товара.
+
+      const actionCartSet = (good, count=1) => ({type: 'CART_SET', count, good}) //   Задание количества товара
+
+      const actionCartClear = () => ({type: 'CART_CLEAR'}) //Очистка корзины
+
+
+
+      const store = createStore(totalReducer); ///
+
+      store.subscribe(() => console.log(store.getState())); //должен запускаться 6 раз
+      store.subscribe(() => {
+        const { status, payload, error } =
+          store.getState().promise.rootCategories || {}; //.имя третье
+        if (status === "FULFILLED") {
+          aside.innerHTML = "";
+          console.log(store.getState());
+          for (const { _id, name } of payload) {
+            aside.innerHTML += `<a href="#/category/${_id}">${name}</a>`;
+          }
+        }
+      });
+
+      store.subscribe(() => {
+        const [, route] = location.hash.split("/");
+
+        if (route !== "category") return;
+
+        const { status, payload, error } =
+          store.getState().promise.CategoryFindOne || {}; //.имя одно
+        if (status === "PENDING") {
+          main.innerHTML = `<img src='https://cdn.dribbble.com/users/63485/screenshots/1309731/infinite-gif-preloader.gif' />`;
+        }
+        if (status === "FULFILLED") {
+          main.innerHTML = "";
+          const { name, goods, subCategories, parent } = payload;
+          if (parent) {
+            main.innerHTML += `<a href="#/category/${parent._id}">${parent.name}</a>`; ///  ыв
+          }
+          main.innerHTML += `<h1>${name}</h1>`;
+
+          for (const { _id, name } of subCategories) {
+            main.innerHTML += `<a href="#/category/${_id}">${name}</a>`;
+          }
+
+          for (const good of goods) { // по фен-шую 
+            const { _id, name, images, price }=good
+            const a = document.createElement('a');
+            a.href=`#/good/${_id}`
+
+            a.innerHTML = `${name} <img src="${backEndUrl}/${images[0].url}" /><strong>${price}</strong>`;
+            createButton(main,good)
+            main.append(a);
+          }
+        }
+      });
+
+      store.subscribe(() => {
+        const [, route] = location.hash.split("/");
+        if (route !== "good") return;
+
+        const { status, payload, error } =
+          store.getState().promise.SpecialOneGood || {}; //.имя одно
+        if (status === "PENDING") {
+          main.innerHTML = `<img src='https://cdn.dribbble.com/users/63485/screenshots/1309731/infinite-gif-preloader.gif' />`;
+        }
+        if (status === "FULFILLED") {
+          main.innerHTML = "";
+
+          const { name,_id, description, images, price, categories } = payload; // тут поменял id
+          if (categories?.length) {
+            main.innerHTML += `<a href="#/category/${categories[0]._id}">${categories[0].name}</a>`;
+          }
+          main.innerHTML += `<h1>${name}</h1><p><i>${description}</i></p><strong>${price}</strong>`;// удалил тут кнопку Купить
+          // createButton("Buy now",_id,main)
+          
+          
+        
+
+          for (let { url } of images) {
+            main.innerHTML += `<img src="${backEndUrl}/${url}" />`;
+          }
+          createButton(main,payload,"Buy now")//c.lf
+          // for (const { _id, name } of subCategories) {
+          //   main.innerHTML += `<a href="#/category/${_id}">${name}</a>`;
+
+          // }
+
+          // for (const { _id, name , images,price} of goods) {
+          //   main.innerHTML += `<a href="#/good/${_id}">${name} <img src="${backEndUrl}/${images[0].url}" /><strong>${price}</strong></a>`;
+
+          // }
+        }
+      });
+      //Логин подписка
+      store.subscribe(() => {
+        //   const [, route] = location.hash.split("/");
+        // if(route!=='login')return
+        userName.innerHTML=store.getState().auth.token?store.getState().auth.payload.sub.login:"Anon"
+        if(store.getState().auth.token){
+          let buttonLogOut = document.createElement('button');
+          buttonLogOut.innerText='Log out'
+          userName.append(buttonLogOut)
+          buttonLogOut.onclick=()=>store.dispatch(actionAuthLogout())
+          let ordersList = document.createElement('span')
+          ordersList.innerHTML=`<span><a href='#/history/'>История заказов</a></span>`
+          userName.append(ordersList)
+
+          
+        }
+
+        store.subscribe(()=>{/// подписчик истории history
+          const {status,payload,error}=store.getState().promise?.OrderFind || {}
+          const [, route] = location.hash.split("/");
+          if (route !== "history") return;
+
+          if (status === "PENDING") {
+          main.innerHTML = `<img src='https://cdn.dribbble.com/users/63485/screenshots/1309731/infinite-gif-preloader.gif' />`;
+          }
+
+          if (status === "FULFILLED"){
+            main.innerHTML = `<h1>История заказов</h1>`
+            const {_id, total} = payload
+              console.log(payload)
+        
+          for(const order of payload){
+            //console.log(order)
+            const {_id, total} = order
+               //console.log(orderGoods,total)
+            main.innerHTML += 
+            `<div style="width: 300px; border:  solid skyblue;">
+            <p>Номер заказа: ${_id}</p>
+                <p>Всего: ${total} денег </p>
+            </div>  
+            `
+          }
+
+
+          
+        }})
+
+
+        // main.innerHTML += `<a href="#/login/>`
+        //   main.innerHTML += `<form>
+        //     <fieldset>
+        //       <legend> Форма логина </legend>
+        //       <p><label for="Login">Login <em>*</em></label><input type="text" id="login"></p>
+        //       <p><label for="Password">Password <em>*</em></label><input type="password" id="password"></p>
+        //     </fieldset>
+        //     <p><input type="submit" value ="Войти" id ='login_in'></p>
+        // </form></a>`;
+        // login_in.onclik = ()=>{
+        //   let login = document.getElementById('login');
+        //   let password = document.getElementById('password');
+        //   console.log(`1`)
+        // }
+      });
+
+      const rootCats = `query categories{
+    CategoryFind(query:"[{\\"parent\\":null}]"){
+        _id name parent {
+          _id
+          createdAt
+          name
+        }
+    
+    }
+}
+`;
+
+let order1 = {
+    orderGoods: [
+      {
+        good: {
+          _id: "62d57ab8b74e1f5f2ec1a148"
+        },
+        count: 1
+      }
+    ]
+  }
+
+
+      // const findOne = `query gf{
+      //   GoodFindOne(query:"[{\\"_id\\":\"5dc94bd00e36db246e3049ee\"}]"){
+      //     goods{
+      //       name
+      //       image
+      //     }
+      //     subCategories{
+      //       name,
+      //       subCategories{
+      //         name
+      //       }
+      //     }
+      //   }
+      // }`
+      const findOne = `query gf($q:String){                                                    
+  CategoryFindOne(query:$q){
+    name,
+    parent {
+      name
+      _id
+    },
+    subCategories{_id,name},
+    goods {
+      _id
+      name,
+      description
+      price,
+      images {
+        _id
+        createdAt
+        text
+        url
+        originalFileName
+      }
+    }
+  }
+}`; // Запрос для получения одной категории с товарами и картинками  без JS
+
+      const specialOne = `query specialOne($q2:String){                                                    
+  GoodFindOne(query:$q2){
+   name,
+   _id,
+    description,
+		price,
+		categories {
+		  _id
+		  createdAt
+		  name
+		},
+		images{
+     url}
+  }
+}`;
+      // запрос найти товар по айди
+
+      const registration = `mutation registration($login:String,$password:String){
+  UserUpsert(user:{login:$login,password:$password}){
+   _id createdAt}
+}`; //запрос на регистрацию
+      const loginQuery = `query login($login:String,$password:String){
+  login(login:$login,password:$password)
+
+}`; // запрос на логин
+      const orderFind = `query orders{
+	OrderFind(query:"[{}]") {
+	  _id
+	  createdAt
+	  total
+	}
+}`; // ЗАпрос на поиск всех заказов
+
+    const createOrder =`mutation createOrder($order:OrderInput){
+      OrderUpsert(order: $order) {
+        _id
+        orderGoods {
+          _id
+          price
+          count
+          total
+          good {
+            name
+            _id
+            price
+            
+            images {
+              url
+              
+            }
+          }
+        }
+      }
+    }`
+
+      const backEndUrl = "http://shop-roles.node.ed.asmer.org.ua";
+      const graphQlURL = `${backEndUrl}/graphql`;
+      const gql = getGQL(graphQlURL);
+
+      const actionRootCats = () =>
+        actionPromise("rootCategories", gql(rootCats)); // action на поиск всех корневых категорий
+
+      store.dispatch(actionRootCats());
+
+      const actionCategoryById = (_id) =>
+        actionPromise(
+          "CategoryFindOne",
+          gql(findOne, { q: JSON.stringify([{ _id }]) })
+        ); // Action на посик категории по айди
+      // store.dispatch(acrionFindOne());
+
+      const actionSpecialOne = (_id) =>
+        actionPromise(
+          "SpecialOneGood",
+          gql(specialOne, { q2: JSON.stringify([{ _id }]) })
+        ); //Action на поиск товара по айди
+      // store.dispatch(actionSpecialOne());
+
+      const actionRegistration = (login, password) =>
+        actionPromise("Registration", gql(registration, { login, password })); // Action для регистрации
+      // store.dispatch(actionRegistration('Chichikov1768','SafetyPass2'));
+
+      const actionLogin = (login, password) =>
+        actionPromise("Login", gql(loginQuery,{login, password})); // Action  для авторизации
+
+      const actionFullLogin = (login, password) => async (dispatch) => {
+        //dispatch возвращает то, что вернул thunk, возвращаемый actionLogin, а там промис,
+        //так как actionPromise возвращает асинхронную функцию
+        const token = await dispatch(actionLogin(login, password));
+        console.log(token);
+        if(token!==null){
+          dispatch(actionAuthLogin(token))
+        }
+        //проверьте что token - строка и отдайте его в actionAuthLogin
+      };
+
+      const actionOrderFind = ()=>actionPromise('OrderFind',gql(orderFind))/// Акшон на все заказы 
+      const actionCreateOrder = (order)=>actionPromise('createdOrder', gql(createOrder,{order})) ;
+      const actionFullOrder = () =>
+        async (dispatch, getState) => {
+        //дізнатися контент кошика використовуючи getState
+        let preOrder = store.getState().cart;
+        
+        let order = {orderGoods:[]}
+        for(let elem in preOrder){
+          order.orderGoods.push({good:{_id:preOrder[elem].good._id},count:preOrder[elem].count})
+
+          
+
+        }
+        console.log(order)
+        
+        //переробити його на формат {orderGoods: [{good:{_id}, count},{good:{_id}, count}, ... ]
+        //зробити graphql-запит на сервер OrderUpsert
+        //якщо запит відпрацював файно, почистити кошик
+        store.dispatch(actionCreateOrder(order))
+        store.dispatch(actionCartClear())
+    }
+
+
+      
+
+
+      function getGQL(url) {
+        // GET GQL
+
+        const newGql = (query, variables = {}) =>
+          fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              ...(!store.getState().auth.token
+                ? {}
+                : { Authorization: "Bearer " + store.getState().auth.token }), //было store.getState().auth.token
+            },
+            body: JSON.stringify({ query, variables }),
+          })
+            .then((res) => res.json())
+            .then((res) => {
+              if (res.errors && !res.data) {
+                throw new Error(`${JSON.stringify(res.errors, null, 4)}`);
+              } else {
+                return Object.values(res.data)[0];
+              }
+            });
+
+        return newGql;
+      }
+
+      // Auth reducer
+      const actionAuthLogin = (token) => ({ type: "AUTH_LOGIN", token });
+      const actionAuthLogout = () => ({ type: "AUTH_LOGOUT" });
+      const token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOiI2Mzc3ZTEzM2I3NGUxZjVmMmVjMWMxMjUiLCJsb2dpbiI6InRlc3Q1IiwiYWNsIjpbIjYzNzdlMTMzYjc0ZTFmNWYyZWMxYzEyNSIsInVzZXIiXX0sImlhdCI6MTY2ODgxMjQ1OH0.t1eQlRwkcP7v9JxUPMo3dcGKprH-uy8ujukNI7xE3A0";
+
+      function authReducer(state = {}, action) {
+        if (action.type === "AUTH_LOGIN") {
+          let res = jwtDecode(action.token);
+          if (res) {
+            return { token: action.token, payload: res };
+          }
+        }
+
+        if (action.type === "AUTH_LOGOUT") {
+          return {};
+        }
+        return state;
+      }
+
+
+      function jwtDecode(token) {
+        let res;
+        try {
+          res = token.split(".")[1];
+          return JSON.parse(atob(res));
+        } catch {}
+      }
+
+      let mLogin =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOiI2NGNiZmEzNDZhZDE3NDIzNThhZWZmN2IiLCJsb2dpbiI6IkNoaWNoaWtvdjE3NjgiLCJhY2wiOlsiNjRjYmZhMzQ2YWQxNzQyMzU4YWVmZjdiIiwidXNlciJdfSwiaWF0IjoxNjkxMTc1NzQ5fQ.Pij71ui_Gndf17GnyImBLSDRUA0jmwP9BiWf1ugUFBU";
+      jwtDecode(mLogin);
+
+      const store1 = createStore(authReducer);
+      store.subscribe(() => console.log(store.getState())); // проверочный код
+
+      //Подписчик корзины
+      store.subscribe(()=>{ ///ooo
+        // const [, route] = location.hash.split("/");
+        // if (route !== "cart") return;
+
+
+        let cartState=store.getState().cart || {};
+        let cartCount = document.getElementById('cartCount');
+
+
+        
+
+        let sum = 0;
+        for( let {count} of Object.values(cartState)){
+
+            sum+=count
+
+        }
+        
+        
+        console.log(sum)
+        if(sum)cartCount.innerHTML=sum;
+        if(sum<1)cartCount.innerHTML='';
+      })
+
+      /*{
+    token: "eyJhbGc.....", 
+    payload: {
+      "sub": {
+        "id": "6377e133b74e1f5f2ec1c125",
+        "login": "test5",
+        "acl": [
+          "6377e133b74e1f5f2ec1c125",
+          "user"
+        ]
+      },
+      "iat": 1668812458
+    }
+}*/
+
+      function localStoredReducer(originalReducer, localStorageKey) {
+        function wrapper(state, action) {
+          if (state === undefined) {
+            let oldJsonState = localStorage[localStorageKey];
+            try {
+              return JSON.parse(oldJsonState);
+            } catch (error) {}
+          }
+
+          let res = originalReducer(state, action);
+          localStorage[localStorageKey] = JSON.stringify(res);
+
+          return res;
+        }
+
+        return wrapper;
+      }
+
+      
+
+      // loginPromise(document.body).then(({login, password}) => console.log(`Вы ввели ${login} и ${password}`))
+
+      // LOGINFORM
+      function Password(parent, open) {
+        let passForm = document.createElement("input");
+        let checkState = document.createElement("input");
+        checkState.type = "checkbox";
+        checkState.checked = open;
+        parent.append(passForm);
+        parent.append(checkState);
+
+        this.setValue = (value) => {
+          passForm.value = value;
+        };
+
+        this.getValue = function () {
+          return passForm.value;
+        };
+
+        this.setOpen = function (state) {
+          if (state) {
+            checkState.checked = state;
+            passForm.type = "password";
+          } else {
+            checkState.checked = state;
+            passForm.type = "text";
+          }
+        };
+
+        this.getOpen = function () {
+          return checkState.checked;
+        };
+        this.onChange;
+        this.onOpenChange;
+
+        checkState.oninput = () => {
+          this.setOpen(this.getOpen());
+          this.onOpenChange(this.getOpen());
+        };
+        passForm.oninput = () => this.onChange(this.getValue());
+      }
+      // Password()
+
+      // let p = new Password(document.body, true);
+
+      // p.onChange = (data) => console.log(data);
+      // p.onOpenChange = (open) => console.log(open);
+
+      // p.setValue("qwerty");
+      // console.log(p.getValue());
+
+      // p.setOpen(false);
+      // console.log(p.getOpen());
+      //loginForm
+        function LoginForm(parent,buttonName='auth',regLink=true,open=false) {
+        let loginForm = document.createElement("input");
+
+        parent.append(loginForm);
+        let passForm = new Password(parent,open)
+        passForm.onChange = (data) => console.log(data);
+        passForm.onOpenChange = (open) => console.log(open); 
+
+        this.getValue = function () {
+          return loginForm.value;
+        };
+        this.getPassValue =function(){
+          return passForm.getValue()
+        }
+        let button = document.createElement('button');
+        button.innerText=buttonName;
+        button.disabled=true;
+        button.id=buttonName;
+        parent.append(button)
+        // изменения по сравнению с домашкой
+        let registrLink = document.createElement('span')
+        registrLink.innerHTML=`<a href = "#/register/">Not a member? Sign up now</a>`;
+        parent.append(registrLink)
+        parent.onchange= ()=>{  
+          console.log(this.getValue())
+          if(this.getValue() && (passForm.getValue())){
+        button.disabled=false;
+          }else{
+        button.disabled=true;
+        
+        }
+      }
+        
+      }
+      function createButton(parent=document.body,good={},text){
+        let btn = document.createElement('button');
+        btn.innerText = text || "Buy now"
+        
+        btn.onclick=()=>{
+          
+          store.dispatch(actionCartAdd(good))
+          
+        }
+        parent.append(btn)
+        console.log(btn.onclick)
+        return btn
+      }
+      
+
+
+
+      window.onhashchange = () => {
+        const [, route, _id] = location.hash.split("/");
+
+        const routes = {
+          category() {
+            store.dispatch(actionCategoryById(_id));
+            console.log(`Category ${_id}`);
+          },
+          good() {
+            //тут был store.dispatch goodById
+            store.dispatch(actionSpecialOne(_id));
+            
+            
+            console.log("good", _id);
+          
+
+          },
+          login() {
+            console.log("А ТУТ ЩА ДОЛЖНА БЫТЬ ФОРМА ЛОГИНА");
+            // main.innerHTML = `<p><label for="Login">Login <em>*</em></label><input type="text" id="login_input"></p>
+            // <p><label for="Password">Password <em>*</em></label><input type="password" id="password"></p>
+            // <button id='Login_button' '>Auth</button>
+            // `;
+            
+            if(!(store.getState().auth.token) ){
+              main.innerHTML=''
+              LoginForm(main,'Auth')
+              Auth.onclick=function(){
+               store.dispatch(actionFullLogin(getValue(),getPassValue()) )
+
+              }
+              
+            // Login_button.onclick = () => {
+            //   console.log(login_input.value, password.value);
+            //   store.dispatch(
+            //     actionFullLogin(login_input.value, password.value)
+            //   );
+            // };
+            // console.log(Login_button, Login_button.onclick);
+          }
+            // store.dispatch(actionFullLogin(login, password));
+            //нарисовать форму логина, которая по нажатию кнопки Login делает store.dispatch(actionFullLogin(login, password))
+          },
+          register(){
+            main.innerHTML=''
+            LoginForm(main,'register',false)
+            register.onclick=()=>{
+              store.dispatch(actionRegistration(getValue(),getPassValue()))
+            }
+
+          //нарисовать форму регистрации, которая по нажатию кнопки Login делает store.dispatch(actionFullRegister(login, password))
+          },
+          history(){
+            main.innerHTML='<h1>история заказов</h1>'
+            store.dispatch(actionOrderFind());
+            
+          },
+          cart(){
+            main.innerHTML=''
+            let divCart = document.createElement('div')
+            divCart.id = 'divCart'
+            
+
+            let cartState=store.getState().cart || {};
+            let totalAmount =0
+        
+
+            
+            for( let {count,good} of Object.values(cartState)){
+            const { _id, name, images, price }=good
+            let amount = price * count;
+            
+            totalAmount+=amount;
+            
+
+            let spanGood = document.createElement('span');
+            
+            
+            
+
+            console.log(good)
+            spanGood.class = 'spanCart'
+
+            
+            spanGood.innerHTML+= `<span class='spanCart'><img src="${backEndUrl}/${images[0].url}" /><a href= #/good/${_id}>${name}</a><span><img src='https://icon-library.com/images/minus-icon/minus-icon-7.jpg'class='minus'id="minus1"><input type='text'value='${count}' class='cartInp'><img src='https://cdn.pixabay.com/photo/2014/04/02/10/55/plus-304947_1280.png'class='plus'id='increment'><img src='https://pics.freeicons.io/uploads/icons/png/9739889771543238875-512.png' class='deleteGood' id='deleteItem'><span>Amount:${amount}<span></span></span><br>`
+            
+            
+            let increment = spanGood.getElementsByClassName('plus');
+            
+            let decrements = spanGood.getElementsByClassName('minus');
+            let deletes = spanGood.getElementsByClassName('deleteGood');
+            let cartInput = spanGood.getElementsByClassName('cartInp');
+            
+
+            cartInput[0].onchange=()=>{
+              store.dispatch(actionCartSet(good,Number(cartInput[0].value)))
+              window.onhashchange()
+            }
+            decrements[0].onclick=()=>{store.dispatch(actionCartSub(good))
+              window.onhashchange()}
+            
+
+            deletes[0].onclick = ()=>{
+              store.dispatch(actionCartDel(good))
+              window.onhashchange()
+            }
+
+              increment[0].onclick = ()=>{
+              store.dispatch(actionCartAdd(good))
+              window.onhashchange()
+            }
+
+
+            divCart.append(spanGood)
+            
+
+ 
+
+              }
+            let spanFotter = document.createElement('span')
+            spanFotter.innerHTML=`<span class='spanFotter'>Clear cart<img src='https://www.vhv.rs/dpng/d/80-806876_clear-cache-icon-png-transparent-png.png' class='deleteCart'id='deleteCart'> Total amount:${totalAmount} <button class='createOrder'>checkout</button> </span>`
+            let cartClear = spanFotter.getElementsByClassName('deleteCart')
+            let createOrder = spanFotter.getElementsByClassName('createOrder')
+
+            cartClear[0].onclick = ()=>{
+              store.dispatch(actionCartClear())
+              window.onhashchange()
+            }
+            createOrder[0].onclick =()=>{
+              if(store.getState().auth.token){
+              // store.dispatch(actionCreateOrder(order1))
+              store.dispatch(actionFullOrder())
+              
+              main.innerHTML= `<h1>Поздравляем, Ваш заказ оформлен</h1>`
+              }else{
+                main.innerHTML = `<h1><a href='#/login/'>Перейдите по ссылке, чтобы авторизоваться и оформить заказ</a></h1>`
+              }
+            }
+
+
+            if(!totalAmount == 0){
+              divCart.append(spanFotter)
+              main.append(divCart)
+              
+            }else{
+              main.innerHTML+=`<h1>Корзина пуста</h1>
+              <h2>Здесь могли быть Ваши покупки</h2>
+              <h3><a href="#/category">Чтобы продолжить Ваши покупки нажмите здесь</a></h3>`
+            }
+            
+        
+
+            console.log('1')
+          }
+        };
+
+        if (route in routes) {
+          routes[route]();
+        }
+      };
+
+      window.onhashchange();
+
+
+    
+
+//store.dispatch(actionCartAdd(store.getState().promise.SpecialOneGood.payload))
+
+
+    </script>
+  </body>
+</html>

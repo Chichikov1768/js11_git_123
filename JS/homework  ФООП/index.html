@@ -48,6 +48,9 @@
         };
         this.onChange;
         this.onOpenChange;
+        this.setStyle = function () {
+          return passForm;
+        };
 
         checkState.oninput = () => {
           this.setOpen(this.getOpen());
@@ -68,41 +71,195 @@
       p.setOpen(false);
       console.log(p.getOpen());
       //loginForm
-        function LoginForm(parent, open=false) {
+      function LoginForm(parent, open = false) {
         let loginForm = document.createElement("input");
 
         parent.append(loginForm);
-        let passForm = new Password(parent,open)
+        let passForm = new Password(parent, open);
         passForm.onChange = (data) => console.log(data);
-        passForm.onOpenChange = (open) => console.log(open); 
+        passForm.onOpenChange = (open) => console.log(open);
 
         this.getValue = function () {
           return loginForm.value;
         };
-        let button = document.createElement('button');
-        button.innerText='Auth'
-        button.disabled=true;
-        parent.append(button)
-        
+        let button = document.createElement("button");
+        button.innerText = "Auth";
+        button.disabled = true;
+        parent.append(button);
 
-        
-        parent.onchange= ()=>{  
-          console.log(this.getValue())
-          if(this.getValue() && (passForm.getValue())){
-        button.disabled=false;
-          }else{
-        button.disabled=true;
-      }}
-        
+        parent.onchange = () => {
+          console.log(this.getValue());
+          if (this.getValue() && passForm.getValue()) {
+            button.disabled = false;
+          } else {
+            button.disabled = true;
+          }
+        };
       }
       let b = new LoginForm(document.body, true);
-      
+
       b.onChange = (data) => console.log(data);
       b.onOpenChange = (open) => console.log(open);
 
+      //Person Constructor
+      function Person(name, surname) {
+        this.name = name;
+        this.surname = surname;
+        getFullName = function () {
+          return this.name;
+        };
+        return getFullName;
+      }
 
+      ///Password Verify
+      function PasswordVerify() {
+        function Password(parent, open) {
+          let passForm = document.createElement("input");
+          let checkState = document.createElement("input");
+          checkState.type = "checkbox";
+          checkState.checked = open;
+          parent.append(passForm);
+          parent.append(checkState);
 
-      
+          this.setValue = (value) => {
+            passForm.value = value;
+          };
+
+          this.getValue = function () {
+            return passForm.value;
+          };
+
+          this.setOpen = function (state) {
+            if (state) {
+              checkState.checked = state;
+              passForm.type = "password";
+            } else {
+              checkState.checked = state;
+              passForm.type = "text";
+            }
+          };
+
+          this.getOpen = function () {
+            return checkState.checked;
+          };
+          this.onChange;
+          this.onOpenChange;
+          this.setStyle = function () {
+            return passForm;
+          };
+
+          checkState.oninput = () => {
+            this.setOpen(this.getOpen());
+            this.onOpenChange(this.getOpen());
+          };
+          passForm.oninput = () => this.onChange(this.getValue());
+        }
+        let firstInput = new Password(document.body, true);
+        let div = document.createElement("div");
+        document.body.append(div);
+
+        let secondInput = new Password(div, false);
+
+        let getSecondInput = () => {
+          if (!firstInput.getOpen()) {
+            div.style.opacity = 0;
+            firstInput.setStyle().style.border =
+              secondInput.setStyle().style.border = "1px solid black";
+            console.log("1");
+          } else {
+            div.style.opacity = 1;
+
+            checkRed();
+          }
+        };
+
+        let checkRed =
+          (secondInput.onChange =
+          firstInput.onChange =
+            () => {
+              if (firstInput.getValue() != secondInput.getValue()) {
+                firstInput.setStyle().style.border =
+                  secondInput.setStyle().style.border = "1px solid red";
+
+                console.log(18);
+              } else {
+                firstInput.setStyle().style.border =
+                  secondInput.setStyle().style.border = "1px solid black";
+              }
+            });
+
+        firstInput.onOpenChange = getSecondInput;
+        return;
+      }
+
+      let qt = PasswordVerify();
+
+      //Person Constructor
+      function Person(name, surname, fatherName = "") {
+        this.name = name;
+        this.surname = surname;
+        this.fatherName = fatherName;
+        this.getFullName = function () {
+          let result = this.name + " " + this.fatherName + " " + this.surname;
+          return result;
+        };
+        return;
+      }
+
+      // Person Prototype
+      {
+        function Person(name, surname, fatherName = "") {
+          this.name = name;
+          this.surname = surname;
+          this.fatherName = fatherName;
+          Person.prototype.getFullName = function () {
+            let result = this.name + " " + this.fatherName + " " + this.surname;
+            return result;
+          };
+          return;
+        }
+      }
+
+      //Store
+      function Store(reducer) {
+        state = reducer(undefined, {}); //стартовая инициализация состояния, запуск редьюсера со state === undefined
+        cbs = []; //массив подписчиков
+
+        this.getState = () => state; //функция, возвращающая переменную из замыкания
+        this.subscribe = (cb) => (
+          cbs.push(cb), //запоминаем подписчиков в массиве
+          () => (cbs = cbs.filter((c) => c !== cb))
+        ); //возвращаем функцию unsubscribe, которая удаляет подписчика из списка
+
+        this.dispatch = (action) => {
+          const newState = reducer(state, action); //пробуем запустить редьюсер
+          if (newState !== state) {
+            //проверяем, смог ли редьюсер обработать action
+            state = newState; //если смог, то обновляем state
+            for (let cb of cbs) cb(); //и запускаем подписчиков
+          }
+        };
+      }
+
+      function reducer(state, { type, ШО, СКОКА }) {
+        //объект action деструктуризируется на три переменных
+        if (!state) {
+          //начальная уборка в ларьке:
+          return {
+            пиво: 100,
+            чипсы: 100,
+            сиги: 100,
+          };
+        }
+        if (type === "КУПИТЬ") {
+          //если тип action - КУПИТЬ, то:
+          return {
+            ...state, //берем все что было из ассортимента
+            [ШО]: state[ШО] - СКОКА, //и уменьшаем то, что покупается на количество
+          };
+        }
+        return state; //если мы не поняли, что от нас просят в `action` - оставляем все как есть
+      }
     </script>
   </body>
 </html>

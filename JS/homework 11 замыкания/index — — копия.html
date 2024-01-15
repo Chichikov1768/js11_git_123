@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>A-level</title>
+    <link
+      rel="icon"
+      href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67"
+    />
+    <link media="all" rel="stylesheet" href="reset.css" />
+    <link media="all" rel="stylesheet" href="style.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <main></main>
+
+    <script>
+          // makeProfileTimer
+
+          //makeSaver
+          
+          var saver = makeSaver(Math.random) //создает функцию-хранилище результата переданной в качестве параметра функции (Math.random 
+                                      // в примере). На этом этапе Math.random НЕ вызывается
+          var value1 = saver()              //saver вызывает переданную в makeSaver функцию, запоминает результат и возвращает его
+          var value2 = saver()              //saver в дальнейшем просто хранит результат функции, и более НЕ вызывает переданную 
+                                            //в makeSaver функцию;
+          value1 === value2                 // всегда true
+
+          var saver2 = makeSaver(() => console.log('saved function called') || [null, undefined, false, '', 0, Math.random()][Math.ceil(Math.random()*6)])
+          var value3 = saver2()
+          var value4 = saver2()
+
+          value3 === value4 // тоже должно быть true
+          
+          
+          
+          let namePrompt = prompt.bind(window, 'Как тебя зовут?')
+          let nameSaver = makeSaver(namePrompt)
+          alert(`Привет! Prompt еще не было!`)
+          alert(`Привет ${nameSaver()}. Только что запустился prompt, первый и последний раз`)
+          alert(`Слушай, ${nameSaver()}, го пить пиво. Ведь prompt был только один раз`)
+
+          function makeSaver(func){
+            
+              
+            
+              
+            if(typeof func ==="function"){
+              
+              let result
+              result = func()
+              return func
+            }else{
+              
+              
+              return result
+              
+            }
+            
+          }
+
+
+            // if(typeof func ==="function"){
+              
+            // }else{
+
+              
+              
+            // }
+               
+      
+
+    </script>
+  </body>
+</html>

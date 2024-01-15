@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>A-level</title>
+    <link
+      rel="icon"
+      href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67"
+    />
+    <link media="all" rel="stylesheet" href="reset.css" />
+    <link media="all" rel="stylesheet" href="style.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <main></main>
+
+    <script>
+      //myBind
+      var pow5 = myBind(Math.pow, Math, [, 5]); // первый параметр - функция для биндинга значений по умолчанию,
+      // второй - this для этой функции, третий - массив, в котором undefined означает
+      // параметры, которые должны передаваться при вызове,
+      // а другие значения являются значениями по умолчанию:
+      var cube = myBind(Math.pow, Math, [, 3]); // cube возводит число в куб
+
+      pow5(2); // => 32, вызывает Math.pow(2,5), соотнесите с [undefined, 5]
+      cube(3); // => 27
+
+      var chessMin = myBind(Math.min, Math, [, 4, , 5, , 8, , 9]);
+      chessMin(-1, -5, 3, 15); // вызывает Math.min(-1, 4, -5, 5, 3, 8, 15, 9), результат -5
+
+      var zeroPrompt = myBind(prompt, window, [undefined, "0"]); // аналогично, только теперь задается "0" как текст по умолчанию в prompt,
+      // а текст приглашения пользователя задается при вызове zeroPrompt
+      var someNumber = zeroPrompt("Введите число"); // вызывает prompt("Введите число","0")
+
+      const bindedJoiner = myBind((...params) => params.join(""), null, [
+        ,
+        "b",
+        ,
+        ,
+        "e",
+        "f",
+      ]); //('a','c','d') === 'abcdef'
+      bindedJoiner("a", "c", "d") === "abcdef";
+      bindedJoiner("1", "2", "3") === "1b23ef";
+
+      function myBind(func,this,arr){
+        let checkedArr = checkArr(arr) // проверяем массив который параметр при первом вызове функции
+        let resultFuction // функция которая вовращается в итоге
+
+        function makeSaver(func) {
+        let result;
+        let called = false;
+
+        function getResult() {
+          if (!called) {
+            result = func();
+            called = true;
+          }
+          return result;
+        }
+
+        return getResult;
+      }
+        
+        function checkArr(arr){
+          let result = []
+          for(let i=0; i< arr.length; i++ ){
+            if((arr[i]!==undefined)){
+              result.push(arr[i]) 
+            }
+          }
+          return result
+        }
+
+        [, 4, , 5, , 8, , 9]
+        [-1, -5, 3, 15]
+        
+
+        
+      }
+      ///
+
+      {
+        function myBind(fn, context, defaultArgs) {
+          
+
+         return function (...args) {
+          function checkArr(arr){
+          let result = []
+          for(let i=0; i< arr.length; i++ ){
+            if((arr[i]!==undefined)){
+              result.push(arr[i]) 
+            }
+          }
+          return result
+        }
+         const combinedArgs = defaultArgs.map(checkArr
+    );
+
+    
+
+    const finalArgs = combinedArgs.concat(args.slice(combinedArgs.length));
+    return fn.apply(context, finalArgs);
+  };
+}
+
+
+
+      }
+
+
+      {
+
+
+
+        function myBind(func, context, defaultArgs) {
+  // Создаем новую функцию с привязанным контекстом и аргументами
+  return function (...args) {
+    function checkArr(arr){
+          let result = []
+          for(let i=0; i< arr.length; i++ ){
+            if((arr[i]!==undefined)){
+              result.push(arr[i]) 
+            }
+          }
+          return result
+        }
+    // Заменяем undefined в массиве defaultArgs на переданные аргументы
+    const normArguments = defaultArgs.map(checkArr)
+
+    // Используем bind для создания новой функции
+    const boundFunction = func.bind(context, ...normArguments);
+
+    // Вызываем созданную функцию и возвращаем результат
+    return boundFunction();
+  };
+}
+      }
+
+        {function myBind(func,context,defaultArgs){
+          function preResult(...arguments){
+            function checkArr(arr){
+            let result = []
+            for(let i=0; i< arr.length; i++ ){
+              if((arr[i]!==undefined)){
+                result.push(arr[i]) 
+              }
+            }
+            return result
+          }
+          const normArguments = defaultArgs.map(checkArr)
+          console.log(normArguments)
+
+          // Используем bind для создания новой функции
+            const boundFunction = func.bind(context, ...normArguments);
+            console.log(boundFunction)
+
+            // Вызываем созданную функцию и возвращаем результат
+            return boundFunction();
+
+          }
+          return preResult
+        }
+
+
+
+
+      }
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>A-level</title>
+    <link
+      rel="icon"
+      href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67"
+    />
+    <link media="all" rel="stylesheet" href="reset.css" />
+    <link media="all" rel="stylesheet" href="style.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <script>
+      //fetch basic
+      
+      fetch("https://swapi.dev/api/people/1/")
+        .then((res) => res.json())
+        .then((luke) => {
+         
+          
+          buildDom(luke,'div')
+        });
+
+      let b = { 1: 2, 3: 4 };
+
+      function buildDom(element, domElement) {
+    let str = `<table border="1">`; 
+    
+    //  заголовки
+    str += `<tr>`;
+    for (let elem in element) {
+        str += `<th>${elem}</th>`;
+    }
+    str += `</tr>`;
+    
+    //  данные
+    str += `<tr>`;
+    for (let elem in element) {
+        str += `<td>${element[elem]}</td>`;
+    }
+    str += `</tr>`;
+    
+    str += `</table>`;
+    
+    
+    let tableContainer = document.createElement('div');
+    tableContainer.innerHTML = str;
+    let where = document.createElement(`${domElement}`)
+    document.body.append(where)
+
+    where.appendChild(tableContainer);
+}
+
+
+
+///fetch improved
+
+fetch("https://swapi.dev/api/people/1/")
+.then((res) => res.json())
+    .then((luke) => {
+        buildDom(luke, 'div');
+    });
+
+
+
+function buildDom(element, domElement) {
+    let str = `<table border="1">`; 
+
+    //  заголовки
+    str += `<tr>`;
+    for (let elem in element) {
+        str += `<th>${elem}</th>`;
+    }
+    str += `</tr>`;
+
+    //  данные
+    str += `<tr>`;
+    for (let elem in element) {
+        str += `<td>${processField(element[elem])}</td>`;
+    }
+    str += `</tr>`;
+
+    str += `</table>`;
+
+    // Используем переданный domElement как обертку
+    let where = document.createElement(`${domElement}`);
+    where.innerHTML = str;
+    document.body.append(where);
+}
+
+function processField(field) {
+    if (typeof field === 'string' && field.includes('https://swapi.dev/api/')) {
+        return `<button onclick="fetchAndDisplay('${field}')">${field}</button>`;
+    } else if (Array.isArray(field)) {
+        return field.map(item => processField(item)).join(', ');
+    } else {
+        return field;
+    }
+}
+
+function fetchAndDisplay(url) {
+    fetch(url)
+        .then(res => res.json())
+        .then(data => buildDom(data, 'div'));
+}
+
+
+/////promise race 
+
+const myfetch = url => fetch(url).then(response => response.json());
+
+const delay = ms => new Promise(ok => setTimeout(() => ok(ms), ms));
+
+const racePromises = Promise.race([
+    myfetch('https://swapi.dev/api/people/1/'),
+    delay(1000)  //  параметр вводится вручную
+]);
+
+racePromises.then(winner => {
+    if (typeof winner === 'number') {
+        console.log(`Завершилась задержка: ${winner} миллисекунд`);
+    } else {
+        console.log('API-запрос завершился быстрее');
+        
+    }
+}).catch(error => console.error('Произошла ошибка:', error));
+
+//confirm 
+  function confirmPromise(text) {
+    return new Promise((resolve, reject) => {
+        const result = window.confirm(text);
+        if (result) {
+            resolve();
+        } else {
+            reject();
+        }
+    });
+}
+
+confirmPromise('Промисы это сложно?')
+    .then(() => console.log('Не так уже и сложно'))
+    .catch(() => console.log('Respect за усидчивость и внимательность'));
+
+
+    // PROMPT
+    function promptPromise(text) {
+    return new Promise((resolve, reject) => {
+        const userInput = window.prompt(text);
+
+        if (userInput === null) {
+            reject(); // Нажатие "Отмена" приводит к отклонению промиса
+        } else {
+            resolve(userInput); // Нажатие "ОК" приводит к разрешению промиса с введенным текстом
+        }
+    });
+}
+
+promptPromise("Как тебя зовут?")
+    .then(name => console.log(`Тебя зовут ${name}`))
+    .catch(() => console.log('Ну зачем морозиться, нормально же общались'));
+
+
+
+
+     
+    </script>
+  </body>
+</html>

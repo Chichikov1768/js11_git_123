@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>A-level</title>
+    <link
+      rel="icon"
+      href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67"
+    />
+    <link media="all" rel="stylesheet" href="reset.css" />
+    <link media="all" rel="stylesheet" href="style.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <main></main>
+
+    <script>
+      
+
+      //createPersonClosure
+      function createPersonClosure(name, surname) {
+        let age, fatherName, name1 , surname1;
+        fatherName='';
+        age = '';
+        name1 = name;
+        surname1 = surname;
+      
+
+        function getName() {
+          return name1;
+        }
+        function getSurname() {
+          return surname1;
+        }
+        function getFatherName() {
+          return fatherName;
+        }
+        function getAge() {
+          return age;
+        }
+        function getFullName() {
+          return `${getName()} ${getSurname()} ${getFatherName()} ${getAge()}`;
+        }
+
+        return getFullName();
+
+        function setName(newName){
+          let str = newName.slice(0,1)
+          let str1 = newName.slice(1,newName.length).split('');
+          for(let elem of str1){
+            if(elem===elem.toLowerCase){
+              cosnole.log('первичная проверка пройдена')
+            }else{
+              console.log('первичная проверка пройдена')
+              return name1
+            }
+          }
+          if ((str === str.toUpperCase())){
+            console.log('Проверка пройдена')
+            name1 = newName
+          }else{
+            
+            console.log('Проверка не пройдена')
+          }
+          return name1 
+         
+        }
+        function setSurname(newSurname){
+          let str = newSurname.slice(0,1)
+          let str1 = newSurname.slice(1,newsurname.length).split('');
+          for(let elem of str1){
+            if(elem===elem.toLowerCase){
+              cosnole.log('первичная проверка пройдена')
+            }else{
+              console.log('первичная проверка пройдена')
+              return surname1
+            }
+          }
+          if ((str === str.toUpperCase())){
+            console.log('Проверка пройдена')
+            surname1 = newSurname
+          }else{
+            
+            console.log('Проверка не пройдена')
+          }
+          return surname1 
+         
+        }
+        function setFatherName(newFatherName){
+          let str = newFatherName.slice(0,1)
+          let str1 = newFatherName.slice(1,newFatherName.length).split('');
+          for(let elem of str1){
+            if(elem===elem.toLowerCase){
+              cosnole.log('первичная проверка пройдена')
+            }else{
+              console.log('первичная проверка пройдена')
+              return fatherName
+            }
+          }
+          if ((str === str.toUpperCase())){
+            console.log('Проверка пройдена')
+            fatherName = newFatherName
+          }else{
+            
+            console.log('Проверка не пройдена')
+          }
+          return fatherName 
+         
+        }
+        function setAge(newAge){
+          let res = Number(newAge);
+          
+          function isNumber(num) {
+          return typeof num === 'number' && !isNaN(num);
+          }
+          if (isNumber(res)){
+            if((res>0)&&(res<100)){
+              console.log("Проверка пройдена");
+              age = res
+              console.log(age);
+              return 
+          }else{
+              console.log('проверка не пройдена');
+          }
+          
+          }
+         
+        }
+        
+        function setFullName(){
+          
+
+          let string = `${setName(name1)} ${setSurname(surname1)} ${setAge(age)} ${setFatherName(fatherName)}`
+          return string;
+
+        }
+
+        setFullName();
+        getFullName();
+      }
+      createPersonClosure("patrik", "shadow");
+
+
+      
+    
+    </script>
+  </body>
+</html>

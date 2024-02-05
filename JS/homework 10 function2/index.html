@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>A-level</title>
+    <link
+      rel="icon"
+      href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67"
+    />
+    <link media="all" rel="stylesheet" href="reset.css" />
+    <link media="all" rel="stylesheet" href="style.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <main></main>
+
+    <script>
+
+      // Arrow to Functions
+      //temperature
+      function convertor(a){
+        return(a*9/5)+32;
+      }
+
+      console.log(convertor(2));
+      //rgb
+      
+      function convertor2(r,g,b){
+      
+         r =r.toString(16)
+         console.log(r);
+         g = g.toString(16);
+         console.log(g);
+         b = b.toString(16);
+         console.log(b);
+        
+          let result = r + g +b ;
+          console.log(`New color = ${result}`);
+          }
+          console.log(convertor2(10,10,10));
+          //flats
+
+          {
+            function findFlat(floor,numF,flat){
+              let result = {};
+          let blockF = Math.ceil(flat/(floor*numF)); // номер подъезда
+          result.blockF = blockF;
+          
+
+          let flatF = (flat/numF)%floor;
+          if(flatF===0){fu
+            alert(floor);
+            result.floor = floor;
+            
+          }else{
+          alert(Math.ceil(flatF));
+          result.floor = Math.ceil(flatF);
+          }
+          console.log(result);
+
+            }
+            findFlat(9,4,81)
+          }
+
+          //Credentials
+
+          function fullName(){
+            {
+          let fullName = {};
+          let surname = prompt('Введите фамилию').trim();
+          let name = prompt('Введите имя').trim();
+          let nameF = prompt('Введите отчество').trim();
+          const capitalize = str => {
+          let result = str.slice(0,1).toUpperCase()+ str.slice(1).toLowerCase();
+    
+     
+              return result //именно этот код обеспечит возврат результата функции
+            }
+
+            fullName.surname = capitalize(surname);
+            fullName.name = capitalize(name);
+            fullName.nameF = capitalize(nameF);
+
+        console.log(fullName)
+        }
+          }
+
+          fullName();
+
+          //New line
+
+
+          function f(str){
+          let arr = str.split('\\n');
+            console.log(arr);
+            let result = arr.join('\n');
+            alert(result);
+        }
+
+        f('привет \n как дела')
+        //
+
+        function createPerson(name,surname){
+          let result = {
+            name, surname,fatherName :'', getFullName(){
+              return `${this.name} ${this.surname} ${this.fatherName}`
+
+            }
+            
+            
+          }
+          return result
+        }
+
+            const a = createPerson("Вася", "Пупкин")
+            const b = createPerson("Анна", "Иванова")
+            const c = createPerson("Елизавета", "Петрова")
+
+            console.log(a.getFullName()) //Вася Пупкин
+            a.fatherName = 'Иванович'    //Вася Иванович Пупкин
+
+            console.log(b.getFullName()) 
+
+  //createPersonClosure
+  function createPersonClosure(name, surname) { 
+        let age, fatherName,result; 
+        fatherName=''; 
+        age = ''; 
+        result = {getName,getSurname,getFatherName,getAge,setName,setSurname,setFatherName,setAge,setFullName}; 
+       
+ 
+        function getName() { 
+          return name; 
+        } 
+        function getSurname() { 
+          return surname; 
+        } 
+        function getFatherName() { 
+          return fatherName; 
+        } 
+        function getAge() { 
+          return age; 
+        } 
+        function getFullName() { 
+          setName(name) 
+          setSurname(surname) 
+          setFatherName(fatherName) 
+          setAge(age) 
+          getName() 
+          getSurname() 
+          getFatherName() 
+          getAge() 
+          return {name:getName(),surname:getSurname(),fatherName:getFatherName(),age:getAge()}; 
+        } 
+ 
+         
+ 
+        function setName(newName){ 
+          let str = newName.slice(0,1) 
+          let str1 = newName.slice(1,newName.length).split(''); 
+          for(let elem of str1){ 
+            if(elem===elem.toLowerCase()){ 
+              console.log('первичная проверка пройдена') 
+            }else{ 
+              console.log('первичная проверка пройдена') 
+              return name 
+            } 
+          } 
+          if ((str === str.toUpperCase())){ 
+            console.log('Проверка пройдена') 
+            name = newName 
+          }else{ 
+             
+            console.log('Проверка не пройдена') 
+          } 
+          return name 
+           
+        } 
+        function setSurname(newSurname){ 
+          let str = newSurname.slice(0,1) 
+          let str1 = newSurname.slice(1,newSurname.length).split(''); 
+          for(let elem of str1){ 
+            if(elem===elem.toLowerCase()){ 
+              console.log('первичная проверка пройдена') 
+            }else{ 
+              console.log('первичная проверка пройдена') 
+              return surname 
+            } 
+          } 
+          if ((str === str.toUpperCase())){ 
+            console.log('Проверка пройдена') 
+            surname = newSurname 
+          }else{ 
+             
+            console.log('Проверка не пройдена') 
+          } 
+          return surname 
+          
+        } 
+        function setFatherName(newFatherName){ 
+          let str = newFatherName.slice(0,1) 
+          let str1 = newFatherName.slice(1,newFatherName.length).split(''); 
+          for(let elem of str1){ 
+            if(elem===elem.toLowerCase()){ 
+              console.log('первичная проверка пройдена') 
+            }else{ 
+              console.log('первичная проверка пройдена') 
+              return fatherName 
+            } 
+          } 
+          if ((str === str.toUpperCase())){ 
+            console.log('Проверка пройдена') 
+            fatherName = newFatherName 
+          }else{ 
+             
+            console.log('Проверка не пройдена') 
+          } 
+          return fatherName 
+           
+          
+        } 
+        function setAge(newAge){ 
+          let res = Number(newAge); 
+           
+          function isNumber(num) { 
+          return typeof num === 'number' && !isNaN(num); 
+          } 
+          if (isNumber(res)){ 
+            if((res>0)&&(res<100)){ 
+              console.log("Проверка пройдена"); 
+             
+              console.log(age); 
+               
+              return age = res 
+          }else{ 
+              console.log('проверка не пройдена'); 
+          } 
+           
+          } 
+         return age 
+        } 
+         
+        function setFullName(string){ 
+          let arr = string.split(' '); 
+          console.log(arr); 
+          setName(arr[0]); 
+          setSurname(arr[1]); 
+          setFatherName(arr[2]); 
+          return console.log("имя установлено") 
+        } 
+ 
+         
+        getFullName(); 
+        console.log(name) 
+        return result 
+      } 
+      let p = createPersonClosure("patrik", "shadow");
+
+
+  //isSorted
+    function isSorted(...params){
+      function isNumber(num) {
+      return typeof num === 'number' && !isNaN(num);
+          }
+      
+      console.log(params);
+      if(!isNumber(params[0])){
+        return false;
+      }
+      for (let i = 1; i<params.length; i++){
+        
+        if((!isNumber(params[i]))||(params[i]<=params[i-1])){
+          console.log(false)
+          return false;
+        }else{
+          
+          console.log(true)
+          
+        }
+      }
+      
+      return true;
+      
+
+        
+      
+    }
+
+
+    isSorted(1,2,3,4,1,1)
+
+    //isSorted
+
+  //   {
+  //     function isSorted(...params){
+  //       function isNumber(num) {
+  //          return typeof num === 'number' && !isNaN(num);
+  //         }
+    
+  //     if (params.map(isNumber)){
+  //       console.log(true)
+  //       return true;
+  //     }else{
+  //       console.log(false);
+  //       return false;
+
+  //     }
+
+  //     if(params.map(()=>a>b)){
+  //       console.log(true)
+  //       return true;
+  //     }else{
+  //       console.log(false);
+  //       return false;
+      
+
+        
+      
+  //   }   
+  //   }
+  //   isSorted(1,2,3,4,1,1)
+  // }
+
+
+
+      
+
+    </script>
+  </body>
+</html>

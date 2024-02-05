@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>A-level</title>
+    <link
+      rel="icon"
+      href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67"
+    />
+    <link media="all" rel="stylesheet" href="reset.css" />
+    <link media="all" rel="stylesheet" href="style.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <main></main>
+
+    <script>
+      
+
+      //createPersonClosure
+      function createPersonClosure(name, surname) {
+        let age, fatherName,result;
+        fatherName='';
+        age = '';
+        result = {getName,getSurname,getFatherName,getAge,setName,setSurname,setFatherName,setAge,setFullName};
+      
+
+        function getName() {
+          return name;
+        }
+        function getSurname() {
+          return surname;
+        }
+        function getFatherName() {
+          return fatherName;
+        }
+        function getAge() {
+          return age;
+        }
+        function getFullName() {
+          setName(name)
+          setSurname(surname)
+          setFatherName(fatherName)
+          setAge(age)
+          getName()
+          getSurname()
+          getFatherName()
+          getAge()
+          return {name:getName(),surname:getSurname(),fatherName:getFatherName(),age:getAge()};
+        }
+
+        
+
+        function setName(newName){
+          let str = newName.slice(0,1)
+          let str1 = newName.slice(1,newName.length).split('');
+          for(let elem of str1){
+            if(elem===elem.toLowerCase()){
+              console.log('первичная проверка пройдена')
+            }else{
+              console.log('первичная проверка не пройдена')
+              return name
+            }
+          }
+          if ((str === str.toUpperCase())){
+            console.log('Проверка пройдена')
+            name = newName
+          }else{
+            
+            console.log('Проверка не пройдена')
+          }
+          return name
+          
+        }
+        function setSurname(newSurname){
+          let str = newSurname.slice(0,1)
+          let str1 = newSurname.slice(1,newSurname.length).split('');
+          for(let elem of str1){
+            if(elem===elem.toLowerCase()){
+              console.log('первичная проверка пройдена')
+            }else{
+              console.log('первичная проверка не пройдена')
+              return surname
+            }
+          }
+          if ((str === str.toUpperCase())){
+            console.log('Проверка пройдена')
+            surname = newSurname
+          }else{
+            
+            console.log('Проверка не пройдена')
+          }
+          return surname
+         
+        }
+        function setFatherName(newFatherName){
+          let str = newFatherName.slice(0,1)
+          let str1 = newFatherName.slice(1,newFatherName.length).split('');
+          for(let elem of str1){
+            if(elem===elem.toLowerCase()){
+              console.log('первичная проверка пройдена')
+            }else{
+              console.log('первичная проверка пройдена')
+              return fatherName
+            }
+          }
+          if ((str === str.toUpperCase())){
+            console.log('Проверка пройдена')
+            fatherName = newFatherName
+          }else{
+            
+            console.log('Проверка не пройдена')
+          }
+          return fatherName
+          
+         
+        }
+        function setAge(newAge){
+          let res = Number(newAge);
+          
+          function isNumber(num) {
+          return typeof num === 'number' && !isNaN(num);
+          }
+          if (isNumber(res)){
+            if((res>0)&&(res<100)){
+              console.log("Проверка пройдена");
+            
+              console.log(age);
+              
+              return age = res
+          }else{
+              console.log('проверка не пройдена');
+          }
+          
+          }
+         return age
+        }
+        
+        function setFullName(string){
+          let arr = string.split(' ');
+          console.log(arr);
+          setName(arr[0]);
+          setSurname(arr[1]);
+          setFatherName(arr[2]);
+          return console.log("имя установлено")
+        }
+
+        
+        getFullName();
+        console.log(name)
+        return result
+      }
+      createPersonClosure("patrik", "shadow");
+
+     
+
+
+
+      
+    
+    </script>
+  </body>
+</html>

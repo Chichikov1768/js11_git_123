@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>A-level</title>
+    <link
+      rel="icon"
+      href="https://camo.githubusercontent.com/eb8b5f9caa4b4765b222e961729eadb775ac710b/68747470733a2f2f67617265766e612e6769746875622e696f2f6a732d73616d706c65732f696d616765732f612d6c6576656c2d69636f2e706e67"
+    />
+    <link media="all" rel="stylesheet" href="reset.css" />
+    <link media="all" rel="stylesheet" href="style.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <main></main>
+
+    <script>
+      
+      //gql 
+
+      const gql = (url,query,variables)=>fetch (url,{
+        method:'POST',
+        headers:{
+          'Content-type':'application/json',
+          Accept:'application/json'
+        },
+        body:JSON.stringify({query,variables})
+      }).then(res=>res.json())
+
+      //get GQL 
+      function getGQL(url) {
+        // GET GQL
+
+        const newGql = (query, variables = {}) =>
+          fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              ...(!store.getState().auth.token
+                ? {}
+                : { Authorization: `Bearer ${store.getState().auth.token}` }),
+            },
+            body: JSON.stringify({ query, variables }),
+          })
+            .then((res) => res.json())
+            .then((res) => {
+              if (res.errors && !res.data) {
+                throw new Error(`${JSON.stringify(res.errors, null, 4)}`);
+              } else {
+                return Object.values(res.data)[0];
+              }
+            });
+
+        return newGql;
+      }
+
+      // JWT DECODE
+
+      function jwtDecode(token) {
+        let res;
+        try {
+          res = token.split(".")[1];
+          return JSON.parse(atob(res));
+        } catch {}
+      }
+
+      let mLogin =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOiI2NGNiZmEzNDZhZDE3NDIzNThhZWZmN2IiLCJsb2dpbiI6IkNoaWNoaWtvdjE3NjgiLCJhY2wiOlsiNjRjYmZhMzQ2YWQxNzQyMzU4YWVmZjdiIiwidXNlciJdfSwiaWF0IjoxNjkxMTc1NzQ5fQ.Pij71ui_Gndf17GnyImBLSDRUA0jmwP9BiWf1ugUFBU";
+      jwtDecode(mLogin);
+
+    </script>
+  </body>
+</html>

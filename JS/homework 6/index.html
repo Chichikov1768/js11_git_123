@@ -57,59 +57,128 @@ console.log(obj2);
 }
 
 //Html tree
-let body = {
-  tagName : 'body',
+// let body = {
+//   tagName : 'body',
 
-children:[
-  {
-    tagName:'div',
-    children:[
-      {tagName:'span',
-      children:['Enter a data please']
-  },
-  {
-    tagName:'/br'
-  },
-{
-  tagName:'input',
-  attrs:{
-    type:'text',
-    id:'name'
-  }
-},
-{
-  tagName:'input',
-  attrs:{
-    type:'text',
-    id:'surname'
-  }
-}]
-  },
-  {
-    tagName:'div',
-    children:[
-      {
-        tagName:'button',
-        attrs:{
-          id:'ok'
-        },
-        children:['OK']
-      },
-      {
-        tagName:'button',
-        attrs:{
-          id:'cancel'
-        },
-        children:['Cancel']
-      }
-    ]
-  }
+// children:[
+//   {
+//     tagName:'div',
+//     children:[
+//       {tagName:'span',
+//       children:['Enter a data please']
+//   },
+//   {
+//     tagName:'/br'
+//   },
+// {
+//   tagName:'input',
+//   attrs:{
+//     type:'text',
+//     id:'name'
+//   }
+// },
+// {
+//   tagName:'input',
+//   attrs:{
+//     type:'text',
+//     id:'surname'
+//   }
+// }]
+//   },
+//   {
+//     tagName:'div',
+//     children:[
+//       {
+//         tagName:'button',
+//         attrs:{
+//           id:'ok'
+//         },
+//         children:['OK']
+//       },
+//       {
+//         tagName:'button',
+//         attrs:{
+//           id:'cancel'
+//         },
+//         children:['Cancel']
+//       }
+//     ]
+//   }
 
-]
+// ]
+// }
+
+// console.log(body.children[1].children[1].children[0]);
+// console.log(body.children[0].children[3].attrs.id);
+
+//правильный вариант 
+//ИСПРАВИЛЕННО 
+
+
+ let body = {
+  tagName: "body",
+  attrs: {},
+  children: [
+    {
+      tagName: "div",
+      attrs: {},
+      children: [
+        {
+          tagName: "span",
+          attrs: {},
+          children: ["Enter a data please:"]
+        },
+        {
+          tagName: "br",
+          attrs: {}
+        },
+        {
+          tagName: "input",
+          attrs: {
+            type: "text",
+            id: "name"
+          },
+          children: []
+        },
+        {
+          tagName: "input",
+          attrs: {
+            type: "text",
+            id: "surname"
+          },
+          children: []
+        }
+      ]
+    },
+    {
+      tagName: "div",
+      attrs: {},
+      children: [
+        {
+          tagName: "button",
+          attrs: {
+            id: "ok"
+          },
+          children: ["OK"]
+        },
+        {
+          tagName: "button",
+          attrs: {
+            id: "cancel"
+          },
+          children: ["Cancel"]
+        }
+      ]
+    }
+  ]
 }
 
-console.log(body.children[1].children[1].children[0]);
-console.log(body.children[0].children[3].attrs.id);
+  let secondButtonInnerText = body.children[1].children[1].children[0]
+  console.log(secondButtonInnerText);
+
+  // Значение атрибута id во втором input
+  let secondInputId = body.children[0].children[3].attrs.id
+  console.log(secondInputId);
 
 
 // parent
@@ -194,66 +263,223 @@ console.log(body.children[0].children[2].attrs)
 {
 
   let body = {
-  tagName : 'body',
-
-  children:[
+  tagName: "body",
+  attrs: {},
+  children: [
     {
-      tagName:'div',
-      children:[
-        {tagName:'span',
-        children:['Enter a data please']
-      },
-      {
-        tagName:'/br'
-      },
-      {
-      tagName:'input',
-      attrs:{
-      type:'text',
-      id:'name'
-      }
+      tagName: "div",
+      attrs: {},
+      children: [
+        {
+          tagName: "span",
+          attrs: {},
+          children: ["Enter a data please:"]
+        },
+        {
+          tagName: "br",
+          attrs: {}
+        },
+        {
+          tagName: "input",
+          attrs: {
+            type: "text",
+            id: "name"
+          },
+          children: []
+        },
+        {
+          tagName: "input",
+          attrs: {
+            type: "text",
+            id: "surname"
+          },
+          children: []
+        }
+      ]
     },
-{
-  tagName:'input',
-  attrs:{
-    type:'text',
-    id:'surname'
-  }
-}]
-  },
     {
-      tagName:'div',
-      children:[
-      {
-        tagName:'button',
-        attrs:{
-          id:'ok'
+      tagName: "div",
+      attrs: {},
+      children: [
+        {
+          tagName: "button",
+          attrs: {
+            id: "ok"
+          },
+          children: ["OK"]
         },
-        children:['OK']
-      },
-      {
-        tagName:'button',
-        attrs:{
-          id:'cancel'
+        {
+          tagName: "button",
+          attrs: {
+            id: "cancel"
+          },
+          children: ["Cancel"]
+        }
+      ]
+    }
+  ]
+}
+
+const {
+  children: [
+    {
+      children: [
+        { children: [spanText] }, // Получаем текст в тэге span
+        ,
+  
+      ]
+    }
+  ]
+} = body;
+
+const {
+  children: [
+    ,
+    {
+      children: [
+        ,
+        { children: [secondButton] } // Получаем вторую кнопку
+      ]
+    }
+  ]
+} = body;
+
+
+const {
+  children: [
+    {
+      children: [,,,
+      {attrs:{
+        id : secondInputId }
+        }  // получаем значение второго инпута
+      ]
+    }
+  ]
+} = body;
+
+
+// Вывод значений
+console.log("Значение атрибута id во втором input:", secondInputId);
+console.log("Текст во второй кнопке:", secondButton.children[0]);
+console.log(spanText)
+
+
+}
+
+
+
+
+
+
+
+//Destructure
+// ИСПРАВЛЕННОЕ
+{
+let body = {
+  tagName: "body",
+  attrs: {},
+  children: [
+    {
+      tagName: "div",
+      attrs: {},
+      children: [
+        {
+          tagName: "span",
+          attrs: {},
+          children: ["Enter a data please:"]
         },
-        children:['Cancel']
-      }
-    ]
-  }
-
-]
+        {
+          tagName: "br",
+          attrs: {}
+        },
+        {
+          tagName: "input",
+          attrs: {
+            type: "text",
+            id: "name"
+          },
+          children: []
+        },
+        {
+          tagName: "input",
+          attrs: {
+            type: "text",
+            id: "surname"
+          },
+          children: []
+        }
+      ]
+    },
+    {
+      tagName: "div",
+      attrs: {},
+      children: [
+        {
+          tagName: "button",
+          attrs: {
+            id: "ok"
+          },
+          children: ["OK"]
+        },
+        {
+          tagName: "button",
+          attrs: {
+            id: "cancel"
+          },
+          children: ["Cancel"]
+        }
+      ]
+    }
+  ]
 }
-let {tagName, children : [ { tagName1, children11: [ { tagName11,children12 } ] },{ tagName2, children21:[ { tagName21,children22 } ] } ]} = body;
+
+const {
+  children: [
+    {
+      children: [
+        { children: [spanText] }, // Получаем текст в тэге span
+        ,
+  
+      ]
+    }
+  ]
+} = body;
+
+const {
+  children: [
+    ,
+    {
+      children: [
+        ,
+        { children: [secondButton] } // Получаем вторую кнопку
+      ]
+    }
+  ]
+} = body;
 
 
+const {
+  children: [
+    {
+      children: [,,,
+      {attrs:{
+        id : secondInputId }
+        }  // получаем значение второго инпута
+      ]
+    }
+  ]
+} = body;
 
 
-console.log(children12)
-
+// Вывод значений
+console.log("Значение атрибута id во втором input:", secondInputId);
+console.log("Текст во второй кнопке:", secondButton.children[0]);
+console.log(spanText)
 
 
 
 }
+
 
 //Destruct array
 {
@@ -320,6 +546,30 @@ let obj1 = {...catCleo};
 
   console.log(obj1);
 
+
+  ////copy delete
+//ИСПРАВЛЕННОЕ
+{
+let key1 = prompt('Введите значение любого ключа');
+let key2 = prompt('Введите значение любого ключа');
+let catCleo = {
+  age: '8 years',
+  weight: '4 kilograms',
+  breed: 'Scotish fold',
+  [key1] : prompt('Введите значение любого ключа'),
+  [key2] : prompt('Введите значение любого ключа')
+
+}
+
+
+const keyToRemove = prompt('Введите ключ, который вы хотите исключить из объекта:age,breed,weight');
+
+
+const { [keyToRemove]: _, ...catWithoutKey } = catCleo; 
+
+
+console.log("Копия объекта без указанного ключа:", catWithoutKey);
+}
   ///Currency real rate 
   
       let currency = prompt('Введите валюту которую хотите поменять').toUpperCase();

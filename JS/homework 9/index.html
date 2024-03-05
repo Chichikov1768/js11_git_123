@@ -44,6 +44,25 @@
         words();
       }
 
+      // ///array fill nopush
+      // ИСПРАВЛЕННОЕ 
+      function arrayFillNoPush(){
+        let arr = [];
+
+        while(true){
+          let userInput= prompt("Введите элемент (нажмите Отмена для завершения):")
+
+          if(userInput === null || userInput ===''){
+            return arr
+          }
+          arr[arr.length] = userInput
+
+
+
+
+        }
+      }
+
       //infinite probability
 
       let iter = function () {
@@ -84,6 +103,24 @@
         console.log(str);
       };
       a(2);
+
+      //chess one line
+      // ИСПРАВЛЕННОЕ 
+      function createLine(length){
+        let result = ''
+        for(let i = 0; i < length; i ++){
+
+          if(i % 2 === 0){
+            result += ' '
+          }else{
+            result +='#'
+          }
+          
+        }
+        return result
+      }
+
+      createLine(11);
 
       //numbers
       {
@@ -136,6 +173,21 @@
         }
         console.log(result);
 
+
+        ///cubes 
+        // ИСПРАВЛЕННОЕ
+
+          function createCubesArray(X){
+            let result = [];
+            for(let i = 0; i < X; i++){
+              result.push(Math.pow(i,3))
+            }
+            return result
+          }
+          
+          let X = 7
+          createCubesArray(X)
+
         //multiply table
         {
           let arr = Array(10);
@@ -144,6 +196,31 @@
           }
 
           console.log(arr);
+
+
+          // multiply table 
+          // ИСПРАВЛЕННОЕ
+
+          {
+            function createMultiplicationTable(size) {
+    
+    let result = [];
+
+   
+    for (let i = 0; i < size; i++) {
+       
+        result[i] = [];
+
+        
+        for (let j = 0; j < size; j++) {
+            
+            result[i][j] = (i + 1) * (j + 1);
+        }
+    }
+
+    return result;
+}
+}
 
           // Делаем таблицу текстом
           let s = "";
@@ -204,6 +281,40 @@
         }
         console.log(str);
 
+        //ромбик
+        ///////Исправленное
+
+    function generateDiamond(height) {
+    let diamond = '';
+    const middle = Math.ceil(height / 2);
+    
+    // Верхняя часть ромба
+    for (let i = 1; i < middle; i++) {
+        diamond += '.'.repeat(middle - i);
+        diamond += '#'.repeat(2 * i - 1);
+        diamond += '.'.repeat(middle - i);
+        diamond += '\n';
+    }
+    for(let i =1;i<=height;i++ ){
+      diamond+='#'
+    }
+    diamond += '\n';
+
+    // Нижняя часть ромба
+    for (let i = middle - 1; i >= 1; i--) {
+        diamond += '.'.repeat(middle - i);
+        diamond += '#'.repeat(2 * i - 1);
+        diamond += '.'.repeat(middle - i);
+        diamond += '\n';
+    }
+    
+    return diamond;
+}
+
+
+console.log(generateDiamond(11));
+
+        
         //Dom multiple table
 
         let table
@@ -293,6 +404,67 @@
         // let target = event.target;
         // target.style.background = '';
 };
+
+
+
+
+
+
+
+/////////////////////DOM: Highlight cross
+
+
+
+let table = document.createElement("table");
+
+table.style.textAlign = "right";
+table.style.fontFamily = "monospace";
+
+
+function addEventListeners(cell, row, col) {
+    cell.addEventListener('mouseover', function() {
+        
+        for (let i = 0; i < table.rows.length; i++) {
+            if (i === row) continue; 
+            table.rows[i].cells[col].style.backgroundColor = 'yellow';
+        }
+        for (let j = 0; j < table.rows[row].cells.length; j++) {
+            if (j === col) continue; 
+            table.rows[row].cells[j].style.backgroundColor = 'yellow';
+        }
+    });
+
+    cell.addEventListener('mouseout', function() {
+        
+        for (let i = 0; i < table.rows.length; i++) {
+            table.rows[i].cells[col].style.backgroundColor = '';
+        }
+        for (let j = 0; j < table.rows[row].cells.length; j++) {
+            table.rows[row].cells[j].style.backgroundColor = '';
+        }
+    });
+}
+
+
+for (let i = 1; i < 10; i++) {
+    const row = document.createElement("tr");
+
+    for (let j = 1; j < 10; j++) {
+        let cell = document.createElement(i == 1 || j == 1 ? "th" : "td");
+        cell.appendChild(document.createTextNode(i * j));
+        cell.style.padding = "4px";
+        cell.style.width = 100 / 9 + "%";
+
+        
+        addEventListeners(cell, i - 1, j - 1);
+
+        row.appendChild(cell);
+    }
+
+    table.appendChild(row);
+}
+
+document.body.appendChild(table);
 
 
 

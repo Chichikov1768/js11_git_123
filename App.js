@@ -362,7 +362,7 @@ const TimerContainer2 = ({ seconds, refresh, paused, render: Render }) => {
     </div>
   );
 };
-
+// я надеюсь это все подгрузилось на гитхаб
 
 
 
